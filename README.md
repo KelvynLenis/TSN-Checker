@@ -13,10 +13,10 @@ There are some points we need to check. They were selected based on these criter
 
 ## How to run
 
-There is a jar file in the folder Checker, in a terminal just run the following command passing the path to the .log or json file, the result will be show in the terminal:
+There is a jar file in the folder Checker called "Checker.jar", in a terminal just run the following command passing the path to the json and .log file. The JSON must be passed first followed by the .log file. The result will be show in the terminal:
 
 ```
-java -jar CheckerJar.jar [path to the .log file]
+java -jar CheckerJar.jar [path to the json file] [path to the .log file]
 ```
 
 ## Typechecking value
