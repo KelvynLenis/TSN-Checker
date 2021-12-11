@@ -1,0 +1,1329 @@
+{
+  "flows": [
+    {
+      "averageLatency": 51.0,
+      "packetTimes": [
+        {
+          "flow1Fragment1": [
+            {
+              "packet0ArrivalTime": 13.0,
+              "packet0DepartureTime": 12.0,
+              "packet0ScheduledTime": 25.0
+            }
+          ]
+        },
+        {
+          "flow1Fragment2": [
+            {
+              "packet0ArrivalTime": 26.0,
+              "packet0DepartureTime": 25.0,
+              "packet0ScheduledTime": 38.0
+            }
+          ]
+        },
+        {
+          "flow1Fragment3": [
+            {
+              "packet0ArrivalTime": 39.0,
+              "packet0DepartureTime": 38.0,
+              "packet0ScheduledTime": 51.0
+            },
+            {
+              "packet1ArrivalTime": 289.0,
+              "packet1ScheduledTime": 301.0,
+              "packet1DepartureTime": 288.0
+            },
+            {
+              "packet2ArrivalTime": 539.0,
+              "packet2DepartureTime": 538.0,
+              "packet2ScheduledTime": 551.0
+            },
+            {
+              "packet3ArrivalTime": 789.0,
+              "packet3ScheduledTime": 801.0,
+              "packet3DepartureTime": 788.0
+            },
+            {
+              "packet4ArrivalTime": 1039.0,
+              "packet4DepartureTime": 1038.0,
+              "packet4ScheduledTime": 1051.0
+            },
+            {
+              "packet5ArrivalTime": 1289.0,
+              "packet5DepartureTime": 1288.0,
+              "packet5ScheduledTime": 1301.0
+            },
+            {
+              "packet6ArrivalTime": 1539.0,
+              "packet6DepartureTime": 1538.0,
+              "packet6ScheduledTime": 1551.0
+            },
+            {
+              "packet7DepartureTime": 1788.0,
+              "packet7ScheduledTime": 1801.0,
+              "packet7ArrivalTime": 1789.0
+            },
+            {
+              "packet8DepartureTime": 2038.0,
+              "packet8ArrivalTime": 2039.0,
+              "packet8ScheduledTime": 2051.0
+            },
+            {
+              "packet9ArrivalTime": 2289.0,
+              "packet9DepartureTime": 2288.0,
+              "packet9ScheduledTime": 2301.0
+            },
+            {
+              "packet10ScheduledTime": 2551.0,
+              "packet10DepartureTime": 2538.0,
+              "packet10ArrivalTime": 2539.0
+            },
+            {
+              "packet11ScheduledTime": 2801.0,
+              "packet11DepartureTime": 2788.0,
+              "packet11ArrivalTime": 2789.0
+            },
+            {
+              "packet12ScheduledTime": 3051.0,
+              "packet12DepartureTime": 3038.0,
+              "packet12ArrivalTime": 3039.0
+            },
+            {
+              "packet13ArrivalTime": 3289.0,
+              "packet13DepartureTime": 3288.0,
+              "packet13ScheduledTime": 3301.0
+            },
+            {
+              "packet14DepartureTime": 3538.0,
+              "packet14ScheduledTime": 3551.0,
+              "packet14ArrivalTime": 3539.0
+            },
+            {
+              "packet15ScheduledTime": 3801.0,
+              "packet15ArrivalTime": 3789.0,
+              "packet15DepartureTime": 3788.0
+            }
+          ]
+        }
+      ],
+      "jitter": 0.0,
+      "name": "flow1",
+      "firstSendingTime": 12.0,
+      "hops": [
+        {
+          "nextNodeName": "switch2",
+          "currentNodeName": "switch0",
+          "priority": 7
+        },
+        {
+          "nextNodeName": "switch1",
+          "currentNodeName": "switch2",
+          "priority": 1
+        },
+        {
+          "nextNodeName": "dev2",
+          "currentNodeName": "switch1",
+          "priority": 1
+        }
+      ]
+    },
+    {
+      "averageLatency": 38.00399999999999,
+      "packetTimes": [
+        {
+          "flow2Fragment1": [
+            {
+              "packet0ArrivalTime": 25.004,
+              "packet0DepartureTime": 24.004,
+              "packet0ScheduledTime": 37.008
+            }
+          ]
+        },
+        {
+          "flow2Fragment2": [
+            {
+              "packet0ArrivalTime": 38.008,
+              "packet0DepartureTime": 37.008,
+              "packet0ScheduledTime": 50.008
+            },
+            {
+              "packet1ArrivalTime": 288.008,
+              "packet1ScheduledTime": 300.008,
+              "packet1DepartureTime": 287.008
+            },
+            {
+              "packet2ArrivalTime": 538.008,
+              "packet2DepartureTime": 537.008,
+              "packet2ScheduledTime": 550.008
+            },
+            {
+              "packet3ArrivalTime": 788.008,
+              "packet3ScheduledTime": 800.008,
+              "packet3DepartureTime": 787.008
+            },
+            {
+              "packet4ArrivalTime": 1038.008,
+              "packet4DepartureTime": 1037.008,
+              "packet4ScheduledTime": 1050.008
+            },
+            {
+              "packet5ArrivalTime": 1288.008,
+              "packet5DepartureTime": 1287.008,
+              "packet5ScheduledTime": 1300.008
+            },
+            {
+              "packet6ArrivalTime": 1538.008,
+              "packet6DepartureTime": 1537.008,
+              "packet6ScheduledTime": 1550.008
+            },
+            {
+              "packet7DepartureTime": 1787.008,
+              "packet7ScheduledTime": 1800.008,
+              "packet7ArrivalTime": 1788.008
+            },
+            {
+              "packet8DepartureTime": 2037.008,
+              "packet8ArrivalTime": 2038.008,
+              "packet8ScheduledTime": 2050.008
+            },
+            {
+              "packet9ArrivalTime": 2288.008,
+              "packet9DepartureTime": 2287.008,
+              "packet9ScheduledTime": 2300.008
+            },
+            {
+              "packet10ScheduledTime": 2550.008,
+              "packet10DepartureTime": 2537.008,
+              "packet10ArrivalTime": 2538.008
+            },
+            {
+              "packet11ScheduledTime": 2800.008,
+              "packet11DepartureTime": 2787.008,
+              "packet11ArrivalTime": 2788.008
+            },
+            {
+              "packet12ScheduledTime": 3050.008,
+              "packet12DepartureTime": 3037.008,
+              "packet12ArrivalTime": 3038.008
+            },
+            {
+              "packet13ArrivalTime": 3288.008,
+              "packet13DepartureTime": 3287.008,
+              "packet13ScheduledTime": 3300.008
+            },
+            {
+              "packet14DepartureTime": 3537.008,
+              "packet14ScheduledTime": 3550.008,
+              "packet14ArrivalTime": 3538.008
+            },
+            {
+              "packet15ScheduledTime": 3800.008,
+              "packet15ArrivalTime": 3788.008,
+              "packet15DepartureTime": 3787.008
+            }
+          ]
+        }
+      ],
+      "jitter": 8.43769498715119E-14,
+      "name": "flow2",
+      "firstSendingTime": 24.004,
+      "hops": [
+        {
+          "nextNodeName": "switch2",
+          "currentNodeName": "switch0",
+          "priority": 1
+        },
+        {
+          "nextNodeName": "dev5",
+          "currentNodeName": "switch2",
+          "priority": 7
+        }
+      ]
+    },
+    {
+      "averageLatency": 51.01200000000012,
+      "packetTimes": [
+        {
+          "flow3Fragment1": [
+            {
+              "packet0ArrivalTime": 37.004,
+              "packet0DepartureTime": 36.004,
+              "packet0ScheduledTime": 49.016
+            }
+          ]
+        },
+        {
+          "flow3Fragment2": [
+            {
+              "packet0ArrivalTime": 50.016,
+              "packet0DepartureTime": 49.016,
+              "packet0ScheduledTime": 62.016
+            }
+          ]
+        },
+        {
+          "flow3Fragment3": [
+            {
+              "packet0ArrivalTime": 63.016,
+              "packet0DepartureTime": 62.016,
+              "packet0ScheduledTime": 75.016
+            },
+            {
+              "packet1ArrivalTime": 313.016,
+              "packet1ScheduledTime": 325.016,
+              "packet1DepartureTime": 312.016
+            },
+            {
+              "packet2ArrivalTime": 563.016,
+              "packet2DepartureTime": 562.016,
+              "packet2ScheduledTime": 575.016
+            },
+            {
+              "packet3ArrivalTime": 813.016,
+              "packet3ScheduledTime": 825.016,
+              "packet3DepartureTime": 812.016
+            },
+            {
+              "packet4ArrivalTime": 1063.016,
+              "packet4DepartureTime": 1062.016,
+              "packet4ScheduledTime": 1075.016
+            },
+            {
+              "packet5ArrivalTime": 1313.016,
+              "packet5DepartureTime": 1312.016,
+              "packet5ScheduledTime": 1325.016
+            },
+            {
+              "packet6ArrivalTime": 1563.016,
+              "packet6DepartureTime": 1562.016,
+              "packet6ScheduledTime": 1575.016
+            },
+            {
+              "packet7DepartureTime": 1812.016,
+              "packet7ScheduledTime": 1825.016,
+              "packet7ArrivalTime": 1813.016
+            },
+            {
+              "packet8DepartureTime": 2062.016,
+              "packet8ArrivalTime": 2063.016,
+              "packet8ScheduledTime": 2075.016
+            },
+            {
+              "packet9ArrivalTime": 2313.016,
+              "packet9DepartureTime": 2312.016,
+              "packet9ScheduledTime": 2325.016
+            },
+            {
+              "packet10ScheduledTime": 2575.016,
+              "packet10DepartureTime": 2562.016,
+              "packet10ArrivalTime": 2563.016
+            },
+            {
+              "packet11ScheduledTime": 2825.016,
+              "packet11DepartureTime": 2812.016,
+              "packet11ArrivalTime": 2813.016
+            },
+            {
+              "packet12ScheduledTime": 3075.016,
+              "packet12DepartureTime": 3062.016,
+              "packet12ArrivalTime": 3063.016
+            },
+            {
+              "packet13ArrivalTime": 3313.016,
+              "packet13DepartureTime": 3312.016,
+              "packet13ScheduledTime": 3325.016
+            },
+            {
+              "packet14DepartureTime": 3562.016,
+              "packet14ScheduledTime": 3575.016,
+              "packet14ArrivalTime": 3563.016
+            },
+            {
+              "packet15ScheduledTime": 3825.016,
+              "packet15ArrivalTime": 3813.016,
+              "packet15DepartureTime": 3812.016
+            }
+          ]
+        }
+      ],
+      "jitter": 7.416289804496046E-14,
+      "name": "flow3",
+      "firstSendingTime": 36.004,
+      "hops": [
+        {
+          "nextNodeName": "switch2",
+          "currentNodeName": "switch0",
+          "priority": 2
+        },
+        {
+          "nextNodeName": "switch3",
+          "currentNodeName": "switch2",
+          "priority": 7
+        },
+        {
+          "nextNodeName": "dev8",
+          "currentNodeName": "switch3",
+          "priority": 7
+        }
+      ]
+    },
+    {
+      "averageLatency": 45.00199999999997,
+      "packetTimes": [
+        {
+          "flow4Fragment1": [
+            {
+              "packet0ArrivalTime": 150.998,
+              "packet0DepartureTime": 149.998,
+              "packet0ScheduledTime": 213.0
+            },
+            {
+              "packet1ArrivalTime": 950.998,
+              "packet1ScheduledTime": 963.0,
+              "packet1DepartureTime": 949.998
+            },
+            {
+              "packet2ArrivalTime": 1750.998,
+              "packet2DepartureTime": 1749.998,
+              "packet2ScheduledTime": 1813.0
+            },
+            {
+              "packet3ArrivalTime": 2550.998,
+              "packet3ScheduledTime": 2563.0,
+              "packet3DepartureTime": 2549.998
+            },
+            {
+              "packet4ArrivalTime": 3350.998,
+              "packet4DepartureTime": 3349.998,
+              "packet4ScheduledTime": 3363.0
+            }
+          ]
+        }
+      ],
+      "jitter": 24.000000000000014,
+      "name": "flow4",
+      "firstSendingTime": 149.998,
+      "hops": [
+        {
+          "nextNodeName": "dev2",
+          "currentNodeName": "switch1",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "averageLatency": 25.0,
+      "packetTimes": [
+        {
+          "flow5Fragment1": [
+            {
+              "packet0ArrivalTime": 13.0,
+              "packet0DepartureTime": 12.0,
+              "packet0ScheduledTime": 25.0
+            }
+          ]
+        }
+      ],
+      "jitter": 0.0,
+      "name": "flow5",
+      "firstSendingTime": 12.0,
+      "hops": [
+        {
+          "nextNodeName": "dev1",
+          "currentNodeName": "switch1",
+          "priority": 7
+        }
+      ]
+    },
+    {
+      "averageLatency": 44.97800000000001,
+      "packetTimes": [
+        {
+          "flow6Fragment1": [
+            {
+              "packet0ArrivalTime": 13.028,
+              "packet0DepartureTime": 12.028,
+              "packet0ScheduledTime": 75.006
+            },
+            {
+              "packet1ArrivalTime": 813.028,
+              "packet1ScheduledTime": 825.028,
+              "packet1DepartureTime": 812.028
+            },
+            {
+              "packet2ArrivalTime": 1613.028,
+              "packet2DepartureTime": 1612.028,
+              "packet2ScheduledTime": 1674.94
+            },
+            {
+              "packet3ArrivalTime": 2413.028,
+              "packet3ScheduledTime": 2425.028,
+              "packet3DepartureTime": 2412.028
+            },
+            {
+              "packet4ArrivalTime": 3213.028,
+              "packet4DepartureTime": 3212.028,
+              "packet4ScheduledTime": 3225.028
+            }
+          ]
+        }
+      ],
+      "jitter": 23.973600000000012,
+      "name": "flow6",
+      "firstSendingTime": 12.028,
+      "hops": [
+        {
+          "nextNodeName": "dev2",
+          "currentNodeName": "switch1",
+          "priority": 0
+        }
+      ]
+    },
+    {
+      "averageLatency": 25.0,
+      "packetTimes": [
+        {
+          "flow7Fragment1": [
+            {
+              "packet0ArrivalTime": 25.0,
+              "packet0DepartureTime": 24.0,
+              "packet0ScheduledTime": 37.0
+            }
+          ]
+        }
+      ],
+      "jitter": 0.0,
+      "name": "flow7",
+      "firstSendingTime": 24.0,
+      "hops": [
+        {
+          "nextNodeName": "dev3",
+          "currentNodeName": "switch1",
+          "priority": 7
+        }
+      ]
+    },
+    {
+      "averageLatency": 51.00400000000002,
+      "packetTimes": [
+        {
+          "flow8Fragment1": [
+            {
+              "packet0ArrivalTime": 461.988,
+              "packet0DepartureTime": 460.988,
+              "packet0ScheduledTime": 473.988
+            }
+          ]
+        },
+        {
+          "flow8Fragment2": [
+            {
+              "packet0ArrivalTime": 474.988,
+              "packet0DepartureTime": 473.988,
+              "packet0ScheduledTime": 486.988
+            }
+          ]
+        },
+        {
+          "flow8Fragment3": [
+            {
+              "packet0ArrivalTime": 487.988,
+              "packet0DepartureTime": 486.988,
+              "packet0ScheduledTime": 499.992
+            }
+          ]
+        }
+      ],
+      "jitter": 0.0,
+      "name": "flow8",
+      "firstSendingTime": 460.988,
+      "hops": [
+        {
+          "nextNodeName": "switch2",
+          "currentNodeName": "switch1",
+          "priority": 7
+        },
+        {
+          "nextNodeName": "switch0",
+          "currentNodeName": "switch2",
+          "priority": 7
+        },
+        {
+          "nextNodeName": "dev0",
+          "currentNodeName": "switch0",
+          "priority": 7
+        }
+      ]
+    },
+    {
+      "averageLatency": 41.99874999999997,
+      "packetTimes": [
+        {
+          "flow9Fragment1": [
+            {
+              "packet0ArrivalTime": 200.001,
+              "packet0DepartureTime": 199.001,
+              "packet0ScheduledTime": 212.001
+            },
+            {
+              "packet1ArrivalTime": 1000.001,
+              "packet1ScheduledTime": 1037.996,
+              "packet1DepartureTime": 999.001
+            },
+            {
+              "packet2ArrivalTime": 1800.001,
+              "packet2DepartureTime": 1799.001,
+              "packet2ScheduledTime": 1824.001
+            },
+            {
+              "packet3ArrivalTime": 2600.001,
+              "packet3ScheduledTime": 2612.001,
+              "packet3DepartureTime": 2599.001
+            },
+            {
+              "packet4ArrivalTime": 3400.001,
+              "packet4DepartureTime": 3399.001,
+              "packet4ScheduledTime": 3458.99975
+            }
+          ]
+        }
+      ],
+      "jitter": 15.598499999999968,
+      "name": "flow9",
+      "firstSendingTime": 199.001,
+      "hops": [
+        {
+          "nextNodeName": "dev5",
+          "currentNodeName": "switch2",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "averageLatency": 25.0,
+      "packetTimes": [
+        {
+          "flow10Fragment1": [
+            {
+              "packet0ArrivalTime": 13.0,
+              "packet0DepartureTime": 12.0,
+              "packet0ScheduledTime": 25.0
+            }
+          ]
+        }
+      ],
+      "jitter": 0.0,
+      "name": "flow10",
+      "firstSendingTime": 12.0,
+      "hops": [
+        {
+          "nextNodeName": "dev4",
+          "currentNodeName": "switch2",
+          "priority": 7
+        }
+      ]
+    },
+    {
+      "averageLatency": 41.99874999999997,
+      "packetTimes": [
+        {
+          "flow11Fragment1": [
+            {
+              "packet0ArrivalTime": 50.001,
+              "packet0DepartureTime": 49.001,
+              "packet0ScheduledTime": 74.001
+            },
+            {
+              "packet1ArrivalTime": 850.001,
+              "packet1ScheduledTime": 862.001,
+              "packet1DepartureTime": 849.001
+            },
+            {
+              "packet2ArrivalTime": 1650.001,
+              "packet2DepartureTime": 1649.001,
+              "packet2ScheduledTime": 1708.99975
+            },
+            {
+              "packet3ArrivalTime": 2450.001,
+              "packet3ScheduledTime": 2462.001,
+              "packet3DepartureTime": 2449.001
+            },
+            {
+              "packet4ArrivalTime": 3250.001,
+              "packet4DepartureTime": 3249.001,
+              "packet4ScheduledTime": 3287.996
+            }
+          ]
+        }
+      ],
+      "jitter": 15.598499999999968,
+      "name": "flow11",
+      "firstSendingTime": 49.001,
+      "hops": [
+        {
+          "nextNodeName": "dev5",
+          "currentNodeName": "switch2",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "averageLatency": 25.008000000000003,
+      "packetTimes": [
+        {
+          "flow12Fragment1": [
+            {
+              "packet0ArrivalTime": 25.0,
+              "packet0DepartureTime": 24.0,
+              "packet0ScheduledTime": 37.008
+            }
+          ]
+        }
+      ],
+      "jitter": 0.0,
+      "name": "flow12",
+      "firstSendingTime": 24.0,
+      "hops": [
+        {
+          "nextNodeName": "dev6",
+          "currentNodeName": "switch2",
+          "priority": 7
+        }
+      ]
+    },
+    {
+      "averageLatency": 38.00400000000002,
+      "packetTimes": [
+        {
+          "flow13Fragment1": [
+            {
+              "packet0ArrivalTime": 450.964,
+              "packet0DepartureTime": 449.964,
+              "packet0ScheduledTime": 462.968
+            }
+          ]
+        },
+        {
+          "flow13Fragment2": [
+            {
+              "packet0ArrivalTime": 463.968,
+              "packet0DepartureTime": 462.968,
+              "packet0ScheduledTime": 475.968
+            }
+          ]
+        }
+      ],
+      "jitter": 0.0,
+      "name": "flow13",
+      "firstSendingTime": 449.964,
+      "hops": [
+        {
+          "nextNodeName": "switch0",
+          "currentNodeName": "switch2",
+          "priority": 1
+        },
+        {
+          "nextNodeName": "dev0",
+          "currentNodeName": "switch0",
+          "priority": 0
+        }
+      ]
+    },
+    {
+      "averageLatency": 32.50050000000001,
+      "packetTimes": [
+        {
+          "flow14Fragment1": [
+            {
+              "packet0ArrivalTime": 137.5155,
+              "packet0DepartureTime": 136.5155,
+              "packet0ScheduledTime": 149.5155
+            },
+            {
+              "packet1ArrivalTime": 937.5155,
+              "packet1ScheduledTime": 949.5155,
+              "packet1DepartureTime": 936.5155
+            },
+            {
+              "packet2ArrivalTime": 1737.5155,
+              "packet2DepartureTime": 1736.5155,
+              "packet2ScheduledTime": 1749.5155
+            },
+            {
+              "packet3ArrivalTime": 2537.5155,
+              "packet3ScheduledTime": 2587.016,
+              "packet3DepartureTime": 2536.5155
+            },
+            {
+              "packet4ArrivalTime": 3337.5155,
+              "packet4DepartureTime": 3336.5155,
+              "packet4ScheduledTime": 3349.5175
+            }
+          ]
+        }
+      ],
+      "jitter": 12.000000000000036,
+      "name": "flow14",
+      "firstSendingTime": 136.5155,
+      "hops": [
+        {
+          "nextNodeName": "dev8",
+          "currentNodeName": "switch3",
+          "priority": 1
+        }
+      ]
+    },
+    {
+      "averageLatency": 25.0,
+      "packetTimes": [
+        {
+          "flow15Fragment1": [
+            {
+              "packet0ArrivalTime": 13.0,
+              "packet0DepartureTime": 12.0,
+              "packet0ScheduledTime": 25.0
+            }
+          ]
+        }
+      ],
+      "jitter": 0.0,
+      "name": "flow15",
+      "firstSendingTime": 12.0,
+      "hops": [
+        {
+          "nextNodeName": "dev7",
+          "currentNodeName": "switch3",
+          "priority": 7
+        }
+      ]
+    },
+    {
+      "averageLatency": 32.500500000000024,
+      "packetTimes": [
+        {
+          "flow16Fragment1": [
+            {
+              "packet0ArrivalTime": 87.5155,
+              "packet0DepartureTime": 86.5155,
+              "packet0ScheduledTime": 99.5175
+            },
+            {
+              "packet1ArrivalTime": 887.5155,
+              "packet1ScheduledTime": 899.5155,
+              "packet1DepartureTime": 886.5155
+            },
+            {
+              "packet2ArrivalTime": 1687.5155,
+              "packet2DepartureTime": 1686.5155,
+              "packet2ScheduledTime": 1699.5155
+            },
+            {
+              "packet3ArrivalTime": 2487.5155,
+              "packet3ScheduledTime": 2499.5155,
+              "packet3DepartureTime": 2486.5155
+            },
+            {
+              "packet4ArrivalTime": 3287.5155,
+              "packet4DepartureTime": 3286.5155,
+              "packet4ScheduledTime": 3337.016
+            }
+          ]
+        }
+      ],
+      "jitter": 12.000000000000036,
+      "name": "flow16",
+      "firstSendingTime": 86.5155,
+      "hops": [
+        {
+          "nextNodeName": "dev8",
+          "currentNodeName": "switch3",
+          "priority": 1
+        }
+      ]
+    },
+    {
+      "averageLatency": 25.008000000000003,
+      "packetTimes": [
+        {
+          "flow17Fragment1": [
+            {
+              "packet0ArrivalTime": 25.0,
+              "packet0DepartureTime": 24.0,
+              "packet0ScheduledTime": 37.008
+            }
+          ]
+        }
+      ],
+      "jitter": 0.0,
+      "name": "flow17",
+      "firstSendingTime": 24.0,
+      "hops": [
+        {
+          "nextNodeName": "dev9",
+          "currentNodeName": "switch3",
+          "priority": 7
+        }
+      ]
+    },
+    {
+      "averageLatency": 439.872,
+      "packetTimes": [
+        {
+          "flow18Fragment1": [
+            {
+              "packet0ArrivalTime": 37.0,
+              "packet0DepartureTime": 36.0,
+              "packet0ScheduledTime": 49.0
+            }
+          ]
+        },
+        {
+          "flow18Fragment2": [
+            {
+              "packet0ArrivalTime": 50.0,
+              "packet0DepartureTime": 49.0,
+              "packet0ScheduledTime": 450.872
+            }
+          ]
+        },
+        {
+          "flow18Fragment3": [
+            {
+              "packet0ArrivalTime": 451.872,
+              "packet0DepartureTime": 450.872,
+              "packet0ScheduledTime": 463.872
+            }
+          ]
+        }
+      ],
+      "jitter": 0.0,
+      "name": "flow18",
+      "firstSendingTime": 36.0,
+      "hops": [
+        {
+          "nextNodeName": "switch2",
+          "currentNodeName": "switch3",
+          "priority": 7
+        },
+        {
+          "nextNodeName": "switch0",
+          "currentNodeName": "switch2",
+          "priority": 3
+        },
+        {
+          "nextNodeName": "dev0",
+          "currentNodeName": "switch0",
+          "priority": 2
+        }
+      ]
+    }
+  ],
+  "switches": [
+    {
+      "name": "switch0",
+      "ports": [
+        {
+          "cycleDuration": 250.0,
+          "name": "switch0Port0",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.008,
+                  "slotStart": 12.992
+                }
+              ],
+              "priority": 7
+            },
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.0,
+                  "slotStart": 25.008
+                }
+              ],
+              "priority": 1
+            },
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.0,
+                  "slotStart": 37.016
+                }
+              ],
+              "priority": 2
+            }
+          ]
+        },
+        {
+          "cycleDuration": 500.0,
+          "name": "switch0Port1",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.0,
+                  "slotStart": 487.992
+                }
+              ],
+              "priority": 7
+            },
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 24.01,
+                  "slotStart": 463.966
+                }
+              ],
+              "priority": 0
+            },
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.002,
+                  "slotStart": 451.87
+                }
+              ],
+              "priority": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "switch1",
+      "ports": [
+        {
+          "cycleDuration": 500.0,
+          "name": "switch1Port0",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.004,
+                  "slotStart": 461.984
+                }
+              ],
+              "priority": 7
+            }
+          ]
+        },
+        {
+          "cycleDuration": 500.0,
+          "name": "switch1Port1",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.008,
+                  "slotStart": 12.992
+                }
+              ],
+              "priority": 7
+            }
+          ]
+        },
+        {
+          "cycleDuration": 250.0,
+          "name": "switch1Port2",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.008,
+                  "slotStart": 38.992
+                }
+              ],
+              "priority": 1
+            },
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.006,
+                  "slotStart": 51.0
+                },
+                {
+                  "slotDuration": 12.0,
+                  "slotStart": 101.0
+                },
+                {
+                  "slotDuration": 12.0,
+                  "slotStart": 201.0
+                }
+              ],
+              "priority": 2
+            },
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 37.986,
+                  "slotStart": 63.006
+                },
+                {
+                  "slotDuration": 38.052,
+                  "slotStart": 162.94
+                },
+                {
+                  "slotDuration": 12.004,
+                  "slotStart": 213.024
+                }
+              ],
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "cycleDuration": 500.0,
+          "name": "switch1Port3",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.008,
+                  "slotStart": 24.992
+                }
+              ],
+              "priority": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "switch2",
+      "ports": [
+        {
+          "cycleDuration": 500.0,
+          "name": "switch2Port0",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.004,
+                  "slotStart": 474.984
+                }
+              ],
+              "priority": 7
+            },
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 23.992,
+                  "slotStart": 450.968
+                }
+              ],
+              "priority": 1
+            },
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.096,
+                  "slotStart": 438.872
+                }
+              ],
+              "priority": 3
+            }
+          ]
+        },
+        {
+          "cycleDuration": 250.0,
+          "name": "switch2Port1",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.008,
+                  "slotStart": 25.992
+                }
+              ],
+              "priority": 1
+            }
+          ]
+        },
+        {
+          "cycleDuration": 250.0,
+          "name": "switch2Port2",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.006,
+                  "slotStart": 50.01
+                }
+              ],
+              "priority": 7
+            }
+          ]
+        },
+        {
+          "cycleDuration": 500.0,
+          "name": "switch2Port3",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.008,
+                  "slotStart": 12.992
+                }
+              ],
+              "priority": 7
+            }
+          ]
+        },
+        {
+          "cycleDuration": 250.0,
+          "name": "switch2Port4",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.004,
+                  "slotStart": 38.004
+                }
+              ],
+              "priority": 7
+            },
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.0,
+                  "slotStart": 25.996
+                },
+                {
+                  "slotDuration": 50.0,
+                  "slotStart": 62.001
+                },
+                {
+                  "slotDuration": 50.0,
+                  "slotStart": 196.99975
+                }
+              ],
+              "priority": 2
+            }
+          ]
+        },
+        {
+          "cycleDuration": 500.0,
+          "name": "switch2Port5",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.0,
+                  "slotStart": 25.008
+                }
+              ],
+              "priority": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "switch3",
+      "ports": [
+        {
+          "cycleDuration": 500.0,
+          "name": "switch3Port0",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.002,
+                  "slotStart": 36.998
+                }
+              ],
+              "priority": 7
+            }
+          ]
+        },
+        {
+          "cycleDuration": 500.0,
+          "name": "switch3Port1",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.008,
+                  "slotStart": 12.992
+                }
+              ],
+              "priority": 7
+            }
+          ]
+        },
+        {
+          "cycleDuration": 250.0,
+          "name": "switch3Port2",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.006,
+                  "slotStart": 63.01
+                }
+              ],
+              "priority": 7
+            },
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.0,
+                  "slotStart": 75.016
+                },
+                {
+                  "slotDuration": 12.0,
+                  "slotStart": 87.5175
+                },
+                {
+                  "slotDuration": 49.998,
+                  "slotStart": 99.5175
+                },
+                {
+                  "slotDuration": 50.0,
+                  "slotStart": 149.5155
+                },
+                {
+                  "slotDuration": 12.4205,
+                  "slotStart": 237.5155
+                }
+              ],
+              "priority": 1
+            }
+          ]
+        },
+        {
+          "cycleDuration": 500.0,
+          "name": "switch3Port3",
+          "firstCycleStart": 0.0,
+          "prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 12.0,
+                  "slotStart": 25.008
+                }
+              ],
+              "priority": 7
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
