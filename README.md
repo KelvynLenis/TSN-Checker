@@ -1,12 +1,23 @@
 # TSN-logs-checker
-TSN provides a couple outputs files: .log and .out. Both files contain logs of time and paths of flows and switches of the run. That being said it's possible to be generated unexpected results that don't raise erros at runtime. Checking line by line might be infeasible due to the great extension of the file so it was made a Checker to validate the output.
+TSN provides a three outputs files: .log, .out and a json file. Both .log and .out files contain logs of time and paths of flows and switches of the run. That being said it's possible to be generated unexpected results that don't raise erros at runtime. Checking line by line might be infeasible due to the great extension of the file so it was made a Checker to validate the output. This checker works on any of the three files.
 
 ### Criterias:
 
-- Criteria 1: All values of time(Departure, arrival and scheduled times) are positive (Typechecking-value)
-- Criteria 2: Time of sent plus duration time of transmition must be equal to the scheduled time. (Well formed hops)
-- Criteria 3: Consistent path nodes.
+There are some points we need to check. They were selected based on these criterias:
 
+- Criteria 1: All values of time(Departure, arrival and scheduled times) are positive (Typechecking-value)
+- Criteria 2: Time of sent plus duration time of transmission must be equal to the scheduled time. (Well formed hops)
+- Criteria 3: Consistent path nodes.
+- Criteria 4: Transmission windows consistency.
+
+
+## How to run
+
+There is a jar file in the folder Checker, in a terminal just run the following command passing the path to the .log or json file, the result will be show in the terminal:
+
+```
+java -jar CheckerJar.jar [path to the .log file]
+```
 
 ## Typechecking value
 
@@ -20,7 +31,7 @@ Below its an example of how the TSN outputs logs of time in the .log file. It br
 
 ## Well formed hops
 
-TSN schedules and control the transmition of packets on the flows based on time, as it's a time sensitiy network, so time is the most important thing to be considerated. It's important that flows respect its schedule to minimize latency and jitter. It can be validated by adding slot start and the slot duration and compare to the scheduled time to validate it as show below:
+TSN schedules and control the transmission of packets on the flows based on time, as it's a time sensitiy network, so time is the most important thing to be considerated. It's important that flows respect its schedule to minimize latency and jitter. It can be validated by adding slot start and the slot duration and compare to the scheduled time to validate it as show below:
 
 ```
 Fragment slot start 0: 42.01 ; 4201/100
@@ -59,4 +70,32 @@ Fragment name: flow1Fragment2
 Fragment name: flow1Fragment3
         Fragment node: switch1
         Fragment next hop: dev5
+```
+
+## Tranmission windows consistency
+
+So basically there can't be two or more packets being transmitted at the same time on the same port. Other thing to considerate is that there is a maximum limit for sending packets so if a packt is to be sent somewhere between 200 and 250 microsseconds(50 is the maximu value allowed) it can't be sent after this interval, so we also need to check it out. Those informations are brought in the json file.
+
+This is how both start of transmission and transmission time are showed. We need to check if they start at the same time and if they don't overpass its limits.
+```
+"prioritySlotsData": [
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 0.576,
+                  "slotStart": 499.424
+                }
+              ],
+              "priority": 0
+            },
+            {
+              "slotsData": [
+                {
+                  "slotDuration": 0.576,
+                  "slotStart": 489.568
+                }
+              ],
+              "priority": 1
+            }
+          ]
 ```
