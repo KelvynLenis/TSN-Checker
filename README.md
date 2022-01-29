@@ -10,7 +10,7 @@ There are some topics we need to check. They were selected based on the followin
 - Criteria 3: Consistent path nodes.
 - Criteria 4: Transmission windows consistency.
 
-### Categories
+# Categories
 
 We have to consider what kind of issue we are facing and how to manage and solve them. We separated them into subjects to a categorize for better visualization. 
 
@@ -19,26 +19,26 @@ We have to consider what kind of issue we are facing and how to manage and solve
 ## Value Error
 This happens whenever value are different from what is expected, for instance, a negative value, wrong cycle duration or wrong calculation.
 
-# Calculation
+### Calculation
 This is as subtopic of the value verification which validates calculation errors.
 
-# Generation
+### Generation
 This is a subtopic of the value verification which validates the generation of values on the output. A wrong value may not be exactly a problem of the network, but rather a simple mistake when building the output file.
 
 ## Path Error
 This happens whenever packets are being redirected to a node outside the flow it was supposed to follow.
 
-# Building the flow
+### Building the flow
 This is a subtopic which aims to validate the flow of a packet to a certain device to ensure it follows as it's supposed.
 
 
 ## Scheduling Error
 This happens whenever packet are being mistakely transmitted, which can be two packets on same port at same time or exceding its window for instance. 
 
-# Transmission
+### Transmission
 This is a subtopic which validates the transmission ports and times to ensure they are not colliding or there are any other errors alike.
 
-# Window
+### Window
 
 This validates questions about the transmission window, so whether or not a packet is overpassing its limits and other question alike.
 
@@ -111,7 +111,7 @@ Fragment name: flow1Fragment3
         Fragment next hop: dev5
 ```
 
-## Tranmission windows consistency
+## Transmission windows consistency
 So basically there can't be two or more packets being transmitted at the same time on the same port. Other thing to considerate is that there is a maximum limit for sending packets so if a packt is to be sent somewhere between 200 and 250 microsseconds(50 is the maximu value allowed) it can't be sent after this interval, so we also need to check it out. Those informations are brought in the json file.
 
 
