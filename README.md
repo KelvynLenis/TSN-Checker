@@ -14,10 +14,14 @@ There are some topics we need to check. They were selected based on the followin
 
 We have to consider what kind of issue we are facing and how to manage and solve them. We separated them into subjects to categorize for better visualization. 
 
+![image](https://user-images.githubusercontent.com/52057929/151662577-5f5d1c35-ba44-4e76-a395-4be282bc7a7b.png)
+
+<!--
 -> Network -> Protocol -> Layer -> TSN -> Output -> Values(Calculation and Generation) - Path(Hops) - Scheduling(Transmission and Window)
+-->
 
 ## Value Error
-This happens whenever value are different from what is expected, for instance, a negative value, wrong cycle duration or wrong calculation.
+This refers to any problem found on the values presented on the output file, like values that are different from what is expected, for instance, a negative value, wrong cycle duration or wrong calculation.
 
 ### Calculation
 This is as subtopic of the value verification which validates calculation errors.
@@ -26,14 +30,13 @@ This is as subtopic of the value verification which validates calculation errors
 This is a subtopic of the value verification which validates the generation of values on the output. A wrong value may not be exactly a problem of the network, but rather a simple mistake when building the output file.
 
 ## Path Error
-This happens whenever packets are being redirected to a node outside the flow it was supposed to follow.
+This refers to packets verification on a determined flow so that they are not breaking its flow and going some node outside the path described by the scheduling to its destination.
 
 ### Building the flow
 This is a subtopic which aims to validate the flow of a packet to a certain device to ensure it follows as it's supposed.
 
-
 ## Scheduling Error
-This happens whenever packet are being mistakely transmitted, which can be two packets on same port at same time or exceding its window for instance. 
+This refers to any kind of problem found on the scheduling, for instance, whenever a packet is being mistakely transmitted, which can be two or more packets on same port at same time or trespassing its cycle and being transmitted over its transmission window.
 
 ### Transmission
 This is a subtopic which validates the transmission ports and times to ensure they are not colliding or there are any other errors alike.
