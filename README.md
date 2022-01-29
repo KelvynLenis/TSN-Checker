@@ -3,25 +3,64 @@ TSN provides a three outputs files: .log, .out and a json file. Both .log and .o
 
 ### Criterias:
 
-There are some points we need to check. They were selected based on these criterias:
+There are some topics we need to check. They were selected based on the following criterias:
 
 - Criteria 1: All values of time(Departure, arrival and scheduled times) are positive (Typechecking-value)
 - Criteria 2: Time of sent plus duration time of transmission must be equal to the scheduled time. (Well formed hops)
 - Criteria 3: Consistent path nodes.
 - Criteria 4: Transmission windows consistency.
 
+### Categories
+
+We have to consider what kind of issue we are facing and how to manage and solve them. We separated them into subjects to a categorize for better visualization. 
+
+-> Network -> Protocol -> Layer -> TSN -> Output -> Values(Calculation and Generation) - Path(Hops) - Scheduling(Transmission and Window)
+
+## Value Error
+This happens whenever value are different from what is expected, for instance, a negative value, wrong cycle duration or wrong calculation.
+
+# Calculation
+This is as subtopic of the value verification which validates calculation errors.
+
+# Generation
+This is a subtopic of the value verification which validates the generation of values on the output. A wrong value may not be exactly a problem of the network, but rather a simple mistake when building the output file.
+
+## Path Error
+This happens whenever packets are being redirected to a node outside the flow it was supposed to follow.
+
+# Building the flow
+This is a subtopic which aims to validate the flow of a packet to a certain device to ensure it follows as it's supposed.
+
+
+## Scheduling Error
+This happens whenever packet are being mistakely transmitted, which can be two packets on same port at same time or exceding its window for instance. 
+
+# Transmission
+This is a subtopic which validates the transmission ports and times to ensure they are not colliding or there are any other errors alike.
+
+# Window
+
+This validates questions about the transmission window, so whether or not a packet is overpassing its limits and other question alike.
+
+
+NOTES:
+- LAYER 2 NETWORK
+- IEEE 802.1Q OSI LAYER 2
+- PTP(PRECISION TIME PROTOCOL)
+- ETHERNET HEADER CONTENT NOT LIMITED BY INTERNET PROTOCOL
+- CENTRAL NETWORK CONTROL & CENTRAL USER CONTROL(CNC AND CUC)
 
 ## How to run
 
-There is a jar file in the folder Checker called "Checker.jar", in a terminal just run the following command passing the path to the json and .log file. The JSON must be passed first followed by the .log file. The result will be show in the terminal:
+There is a jar file in the folder Checker, in a terminal just run the following command passing the path to the .log or json file, the result will be show in the terminal:
 
 ```
-java -jar CheckerJar.jar [path to the json file] [path to the .log file]
+java -jar CheckerJar.jar [path to the .log file]
 ```
 
 ## Typechecking value
 
-Below its an example of how the TSN outputs logs of time in the .log file. It brings data about the departure, arrival and scheduled for there can't be negative time in the real world the Checker validates wheter it happens or not for every time log.
+Below its an example of how the TSN outputs logs of time in the .log file. It brings data about the departure, arrival and scheduled for there can't be negative time in the real world the Checker validates whether it happens or not for every time log.
 
 ```
 (0) Fragment departure time: 41.0
@@ -41,7 +80,7 @@ Fragment scheduled time: 55.01
 
 
 ## Consistent path nodes
-During runtime it might happen TSN generate a path that is not supposed to exist or to be at certain flow. There is a need then to check wheter the paths are well made or not, so this checker also validates it by comparing the path to a device with the hops data.
+During runtime it might happen TSN generate a path that is not supposed to exist or to be at certain flow. There is a need then to check whether the paths are well made or not, so this checker also validates it by comparing the path to a device with the hops data.
 
 
 This is the path to a device called dev5, we hope the flow to follow as it says.
@@ -73,29 +112,33 @@ Fragment name: flow1Fragment3
 ```
 
 ## Tranmission windows consistency
-
 So basically there can't be two or more packets being transmitted at the same time on the same port. Other thing to considerate is that there is a maximum limit for sending packets so if a packt is to be sent somewhere between 200 and 250 microsseconds(50 is the maximu value allowed) it can't be sent after this interval, so we also need to check it out. Those informations are brought in the json file.
+
 
 This is how both start of transmission and transmission time are showed. We need to check if they start at the same time and if they don't overpass its limits.
 ```
-"prioritySlotsData": [
-            {
-              "slotsData": [
-                {
-                  "slotDuration": 0.576,
-                  "slotStart": 499.424
-                }
-              ],
-              "priority": 0
-            },
-            {
-              "slotsData": [
-                {
-                  "slotDuration": 0.576,
-                  "slotStart": 489.568
-                }
-              ],
-              "priority": 1
-            }
-          ]
+"cycleDuration": 500.0,
+"name": "eth203",
+"firstCycleStart": 0.0
+"prioritySlotsData": 
+[
+	{
+	  "slotsData": [
+	    {
+	      "slotDuration": 0.576,
+	      "slotStart": 499.424
+	    }
+	  ],
+	  "priority": 0
+	},
+	{
+	  "slotsData": [
+	    {
+	      "slotDuration": 0.576,
+	      "slotStart": 489.568
+	    }
+	  ],
+	  "priority": 1
+	}
+]
 ```
