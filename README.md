@@ -12,7 +12,7 @@ There are some topics we need to check. They were selected based on the followin
 
 # Categories
 
-We have to consider what kind of issue we are facing and how to manage and solve them. We separated them into subjects to a categorize for better visualization. 
+We have to consider what kind of issue we are facing and how to manage and solve them. We separated them into subjects to categorize for better visualization. 
 
 -> Network -> Protocol -> Layer -> TSN -> Output -> Values(Calculation and Generation) - Path(Hops) - Scheduling(Transmission and Window)
 
