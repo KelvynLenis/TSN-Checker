@@ -32,7 +32,7 @@ This is a subtopic of the value verification which validates the generation of v
 ## Path Error
 This refers to packets verification on a determined flow so that they are not breaking its flow and going some node outside the path described by the scheduling to its destination.
 
-### Building the flow
+### Hops
 This is a subtopic which aims to validate the flow of a packet to a certain device to ensure it follows as it's supposed.
 
 ## Scheduling Error
