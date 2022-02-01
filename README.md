@@ -38,7 +38,7 @@ This is a subtopic which aims to validate the flow of a packet to a certain devi
 ## Scheduling Error
 This refers to any kind of problem found on the scheduling, for instance, whenever a packet is being mistakely transmitted, which can be two or more packets on same port at same time or trespassing its cycle and being transmitted over its transmission window.
 
-### Transmission
+### Port
 This is a subtopic which validates the transmission ports and times to ensure they are not colliding or there are any other errors alike.
 
 ### Window
