@@ -14,6 +14,10 @@ There are some topics we need to check. They were selected based on the followin
 
 We have to consider what kind of issue we are facing and how to manage and solve them. We separated them into subjects to categorize for better visualization. 
 
+
+Sintaxe -> is it a number? is it a json file?
+Semantica -> flows ->  path
+
 ![image](https://user-images.githubusercontent.com/52057929/151662577-5f5d1c35-ba44-4e76-a395-4be282bc7a7b.png)
 
 <!--
