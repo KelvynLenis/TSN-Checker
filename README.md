@@ -45,14 +45,14 @@ This is a subtopic which validates the transmission ports and times to ensure th
 
 This validates questions about the transmission window, so whether or not a packet is overpassing its limits and other question alike.
 
-
+<!--
 NOTES:
 - LAYER 2 NETWORK
 - IEEE 802.1Q OSI LAYER 2
 - PTP(PRECISION TIME PROTOCOL)
 - ETHERNET HEADER CONTENT NOT LIMITED BY INTERNET PROTOCOL
 - CENTRAL NETWORK CONTROL & CENTRAL USER CONTROL(CNC AND CUC)
-
+-->
 ## How to run
 
 There is a jar file in the folder Checker, in a terminal just run the following command passing the path to the .log or json file, the result will be show in the terminal:
