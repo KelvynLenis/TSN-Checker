@@ -25,7 +25,7 @@ Semantica -> flows ->  path
 -> Network -> Protocol -> Layer -> TSN -> Output -> Values(Calculation and Generation) - Path(Hops) - Scheduling(Transmission and Window)
 -->
 
-## Sintax
+# Sintax
 This refers to any sintatic validation, for instance in the case of a file not being what it is expected to be or a number not being a number and such other situations like that.
 
 ### Value Error
@@ -34,18 +34,18 @@ The checker verifies the data type of information brought into the file to be va
 ### File Error
 When a file is passed and it doesn't  correspond to what is being asked the checker validates its input to ensure it's receveing the correct file.
 
-## Semantic
+# Semantic
 Validations that are semantic question for instance verifying the flows and its path, time to travel, cycle and others data are part of this category. 
 
-### Path Error
-This refers to packets verification on a determined flow so that they are not breaking its flow and going some node outside the path described by the scheduling to its destination.
 
-
-### Flow
+## Flow
 This is a subtopic which validates the transmission ports and times to ensure they are not colliding or there are any other errors alike.
 This refers to any kind of problem found on the scheduling, for instance, whenever a packet is being mistakely transmitted, which can be two or more packets on same port at same time or trespassing its cycle and being transmitted over its transmission window.
 
-### Window
+### Paths
+This refers to packets verification on a determined flow so that they are not breaking its flow and going some node outside the path described by the scheduling to its destination.
+
+### Ports
 
 This validates questions about the transmission window, so whether or not a packet is overpassing its limits and other question alike.
 
