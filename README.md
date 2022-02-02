@@ -18,32 +18,32 @@ We have to consider what kind of issue we are facing and how to manage and solve
 Sintaxe -> is it a number? is it a json file?
 Semantica -> flows ->  path
 
-![image](https://user-images.githubusercontent.com/52057929/151662577-5f5d1c35-ba44-4e76-a395-4be282bc7a7b.png)
+![image](https://user-images.githubusercontent.com/52057929/152250767-ec1458ea-ec83-49c5-889b-cb69f16cd6a5.png)
+
 
 <!--
 -> Network -> Protocol -> Layer -> TSN -> Output -> Values(Calculation and Generation) - Path(Hops) - Scheduling(Transmission and Window)
 -->
 
-## Value Error
-This refers to any problem found on the values presented on the output file, like values that are different from what is expected, for instance, a negative value, wrong cycle duration or wrong calculation.
+## Sintax
+This refers to any sintatic validation, for instance in the case of a file not being what it is expected to be or a number not being a number and such other situations like that.
 
-### Calculation
-This is as subtopic of the value verification which validates calculation errors.
+### Value Error
+The checker verifies the data type of information brought into the file to be validated to ensure they are the type it's meant to be.
 
-### Generation
-This is a subtopic of the value verification which validates the generation of values on the output. A wrong value may not be exactly a problem of the network, but rather a simple mistake when building the output file.
+### File Error
+When a file is passed and it doesn't  correspond to what is being asked the checker validates its input to ensure it's receveing the correct file.
 
-## Path Error
+## Semantic
+Validations that are semantic question for instance verifying the flows and its path, time to travel, cycle and others data are part of this category. 
+
+### Path Error
 This refers to packets verification on a determined flow so that they are not breaking its flow and going some node outside the path described by the scheduling to its destination.
 
-### Hops
-This is a subtopic which aims to validate the flow of a packet to a certain device to ensure it follows as it's supposed.
 
-## Scheduling Error
-This refers to any kind of problem found on the scheduling, for instance, whenever a packet is being mistakely transmitted, which can be two or more packets on same port at same time or trespassing its cycle and being transmitted over its transmission window.
-
-### Port
+### Flow
 This is a subtopic which validates the transmission ports and times to ensure they are not colliding or there are any other errors alike.
+This refers to any kind of problem found on the scheduling, for instance, whenever a packet is being mistakely transmitted, which can be two or more packets on same port at same time or trespassing its cycle and being transmitted over its transmission window.
 
 ### Window
 
@@ -51,11 +51,10 @@ This validates questions about the transmission window, so whether or not a pack
 
 <!--
 NOTES:
-- LAYER 2 NETWORK
-- IEEE 802.1Q OSI LAYER 2
-- PTP(PRECISION TIME PROTOCOL)
-- ETHERNET HEADER CONTENT NOT LIMITED BY INTERNET PROTOCOL
-- CENTRAL NETWORK CONTROL & CENTRAL USER CONTROL(CNC AND CUC)
+- SINTATIC
+- SEMANTIC
+- FLOWS
+- WHAT'S INSIDE FLOWS?
 -->
 ## How to run
 
