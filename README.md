@@ -28,10 +28,10 @@ Semantica -> flows ->  path
 # Sintax
 This refers to any sintatic validation, for instance in the case of a file not being what it is expected to be or a number not being a number and such other situations like that.
 
-### Value Error
+### Data TYpe
 The checker verifies the data type of information brought into the file to be validated to ensure they are the type it's meant to be.
 
-### File Error
+### File Type
 When a file is passed and it doesn't  correspond to what is being asked the checker validates its input to ensure it's receveing the correct file.
 
 # Semantic
