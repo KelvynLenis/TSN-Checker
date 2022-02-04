@@ -45,7 +45,7 @@ This is a subtopic which validates the flow data and issues related to it we cou
 The flows contain data about the hops from the origin device to the end device and so there may occour that a node be missing or the scheduling inserting a node in the wrong place. We then made a validation to ensure the path to the end devices follows as they are supposed to on each flow.
 
 ### Ports
-This subtopic refers to validations of the ports data. The ports contain some important data for TSNSched like transmission of packets and its cycle and window, those are critical to us as they represent the core of TSN and the Scheduling problem, [see for more details about it](https://github.com/ACassimiro/TSNsched){:target="_blank"}.
+This subtopic refers to validations of the ports data. The ports contain some important data for TSNSched like transmission of packets and its cycle and window, those are critical to us as they represent the core of TSN and the Scheduling problem, [check this out](https://github.com/ACassimiro/TSNsched){target="_blank"}  for more details about it.
 
 This validates questions about the transmission window, so whether or not a packet is overpassing its limits and other question alike.
 
