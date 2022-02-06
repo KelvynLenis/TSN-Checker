@@ -4,7 +4,11 @@ TSN provides a three outputs files: .log, .out and a json file. Both .log and .o
 
 ### Table of Contents
 
-- [Criterias used for validation](#criterias)
+- [Criterias](#criterias)
+	- [Typechecking value](#typechecking-value)
+	- [Well formed hops ](#well-formed-hops)
+	- [Consistent path nodes](#consistent-path-nodes)
+	- [Transmission windows consistency](#transmission-windows-consistency)
 - [Categories](#categories)
   * [Sintax](#sintax)
   	* [Data Type](#data-type)
@@ -14,8 +18,6 @@ TSN provides a three outputs files: .log, .out and a json file. Both .log and .o
   		* [Paths](#paths)
   		* [Ports](#ports)
  - [How to run](#how-to-run)
-
-
 
 # Criterias
 
