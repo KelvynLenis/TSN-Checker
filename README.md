@@ -74,10 +74,10 @@ NOTES:
 -->
 ## How to run
 
-There is a jar file in the folder Checker, in a terminal just run the following command passing the path to the .log or json file, the result will be show in the terminal:
+There is a jar file inside the folder Checker, in a terminal just run the following command passing the path to the json file followed by the log file, the result will the been shown in the terminal:
 
 ```
-java -jar CheckerJar.jar [path to the .log file]
+java -jar CheckerJar.jar [path to the .json file] [path to the .log file]
 ```
 
 ## Typechecking value
