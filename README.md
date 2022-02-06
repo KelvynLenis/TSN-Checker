@@ -18,7 +18,7 @@ Amoung the many validation it may become hard to track so we considered and appr
 Sintaxe -> is it a number? is it a json file?
 Semantica -> flows ->  path
 
-![image](https://user-images.githubusercontent.com/52057929/152250767-ec1458ea-ec83-49c5-889b-cb69f16cd6a5.png)
+![image](https://user-images.githubusercontent.com/52057929/152686739-082f7a50-f8e4-4a31-b046-7db7fe63d36b.png)
 
 
 <!--
