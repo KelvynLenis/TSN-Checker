@@ -13,7 +13,7 @@ TSN provides a three outputs files: .log, .out and a json file. Both .log and .o
   	* [Flow](#flow)
   		* [Paths](#paths)
   		* [Ports](#ports)
-  - [How to run](#how-to-run)
+ - [How to run](#how-to-run)
 
 
 
