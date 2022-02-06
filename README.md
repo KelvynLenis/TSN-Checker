@@ -1,6 +1,6 @@
 
 # TSN-logs-checker
-TSN provides a three outputs files: .log, .out and a json file. Both .log and .out files contain logs of time and paths of flows and switches of the run. That being said it's possible to be generated unexpected results that don't raise erros at runtime. Checking line by line might be infeasible due to the great extension of the file so it was made a Checker to validate the output. This checker works on any of the three files. Those files however must meet the required format as they were made to find patterns and specific nomenclatures to make its validation.
+TSN provides a three outputs files: .log, .out and a json file. Both .log and .out files contain logs of time and paths of flows and switches of the run. That being said it's possible to be generated unexpected results that don't raise erros at runtime. Checking line by line might be infeasible due to the great extension of the file so it was made a Checker to validate the output. This checker receives two of them as input, first the json and then the log file in order to work it must follow this order. Those files however must meet the required format as they were made to find patterns and specific nomenclatures to make its validation.
 
 ### Table of Contents
 
