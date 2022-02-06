@@ -1,7 +1,23 @@
+
 # TSN-logs-checker
 TSN provides a three outputs files: .log, .out and a json file. Both .log and .out files contain logs of time and paths of flows and switches of the run. That being said it's possible to be generated unexpected results that don't raise erros at runtime. Checking line by line might be infeasible due to the great extension of the file so it was made a Checker to validate the output. This checker works on any of the three files. Those files however must meet the required format as they were made to find patterns and specific nomenclatures to make its validation.
 
-### Criterias:
+### Table of Contents
+
+- [Criterias used for validation](#criterias)
+- [Categories](#categories)
+  * [Sintax](#sintax)
+  	* [Data Type](#data-type)
+  	* [File Type](#file-type)
+  * [Semantic](#semantic)
+  	* [Flow](#flow)
+  		* [Paths](#paths)
+  		* [Ports](#ports)
+  - [How to run](#how-to-run)
+
+
+
+# Criterias
 
 There are some topics we need to check. They were selected based on the following criterias:
 
@@ -15,8 +31,8 @@ There are some topics we need to check. They were selected based on the followin
 Amoung the many validation it may become hard to track so we considered and approach to categorize them in order to ease management and search for a specific issue. We then separated or validations into subjects and subtopics which are constantly growing as we develop more validation, but it starts by the principle of semantic and sintatic. Sintatic category is about the sintatic part as for misspeling  
 
 
-Sintaxe -> is it a number? is it a json file?
-Semantica -> flows ->  path
+<!-- Sintaxe -> is it a number? is it a json file?
+Semantica -> flows ->  path -->
 
 ![image](https://user-images.githubusercontent.com/52057929/152686739-082f7a50-f8e4-4a31-b046-7db7fe63d36b.png)
 
