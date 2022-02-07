@@ -1,6 +1,6 @@
 
 # TSN-logs-checker
-TSN provides a three outputs files: .log, .out and a json file. Both .log and .out files contain logs of time and paths of flows and switches of the run. That being said it's possible to be generated unexpected results that don't raise erros at runtime. Checking line by line might be infeasible due to the great extension of the file so it was made a Checker to validate the output. This checker receives two of them as input, first the json and then the log file in order to work it must follow this order. Those files however must meet the required format as they were made to find patterns and specific nomenclatures to make its validation.
+TSN provides a three outputs files: .log, .out and a json file. Both .log and .out files contain logs of time and paths of flows and switches of the run. That being said it's possible to be generated unexpected results that don't raise erros at runtime. Checking line by line might be infeasible due to the great extension of the file so it was made a Checker to validate the output. This checker receives two of them as input, first the json and then the log file in order to work it must follow this order. Those files however must meet the required format as they were made to find patterns and specific nomenclatures to make its validation. Notice that this project is constantly being updated and we intend to extend this more accordingly to the needs, so we may be adding more validations, features and increasing this documentation.
 
 ### Table of Contents
 
@@ -14,9 +14,11 @@ TSN provides a three outputs files: .log, .out and a json file. Both .log and .o
   	* [Data Type](#data-type)
   	* [File Type](#file-type)
   * [Semantic](#semantic)
+  	* [Switches](#switches)
+  		* [Ports](#ports)
   	* [Flow](#flow)
   		* [Paths](#paths)
-  		* [Ports](#ports)
+  		* [Packet times](#packet-times)
  - [How to run](#how-to-run)
 
 # Criterias
@@ -56,14 +58,20 @@ This subtopic refers to the validation of files type, just like the one before b
 For we have made verification of the sintatic of our file now we are to face the semantic verification, this means the correctness of the data in a more depth point of view. The semantic differs from the sintax at adopting a more technical view of situation, so it may not be so clear to the user that doesn't comprehend the situation and the behavior of the TSNSched or it may just pass unnoticed by even experienced users as the topology may the too large, which is the purpose of this project, that is help users make validation. In short, semantic validations aims logical question, for instance, transmission issues like the flow and its transmission of packet on a port and transmission window.
 
 
+## Switches 
+This is a subtopic which validates the data found on a switch. But What does a switch holds? it holds data of the ports, each port has a cycle duration and an array with the time of start of transmission and its duration.
+
+### Ports
+This subtopic refers to validations of the ports data to ensure they make sense. The ports contain some important data for TSNSched like transmission of packets and its cycle and window, those are critical to us as they represent the core of TSN and the Scheduling problem, <a href="https://github.com/ACassimiro/TSNsched" target="_blank">Check it out</a> for more details about it.
+
 ## Flow
-This is a subtopic which validates the flow data and issues related to it we could cite transmission ports, transmission window and hops to end devices. The flow then can be divided again into more specific subtopic like the Ports and Path questions. Following we detail more of them. Notice that this project is constantly being updated and we intend to extend this more accordingly to the needs, so may add others topics.
+This is a subtopic which validates the flow data and questions related to it. You may find on a flow the average latency, jitter, data time of the packets and hops to end devices all inside the json file the complete details can be found on the log file. The data on the log file is the combination of data found on switches on json file and the flow on json file for each hop so the data brought is completly detailed and specific to a hop. The flow then can be divided into a more specific subtopics for paths and packet times.
 
 ### Paths
 The flows contain data about the hops from the origin device to the end device and so there may occour that a node be missing or the scheduling inserting a node in the wrong place. We then made a validation to ensure the path to the end devices follows as they are supposed to on each flow.
 
-### Ports
-This subtopic refers to validations of the ports data to ensure they make sense. The ports contain some important data for TSNSched like transmission of packets and its cycle and window, those are critical to us as they represent the core of TSN and the Scheduling problem, <a href="https://github.com/ACassimiro/TSNsched" target="_blank">Check it out</a> for more details about it.
+
+### Packet Times
 
 <!--
 NOTES:
