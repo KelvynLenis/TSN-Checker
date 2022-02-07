@@ -35,15 +35,8 @@ There are some topics we need to check. They were selected based on the followin
 Amoung the many validation it may become hard to track so we considered and approach to categorize them in order to ease management and search for a specific issue. We then separated or validations into subjects and subtopics which are constantly growing as we develop more validation, but it starts by the principle of semantic and sintatic. Sintatic category is about the sintatic part as for misspeling  
 
 
-<!-- Sintaxe -> is it a number? is it a json file?
-Semantica -> flows ->  path -->
-
 ![image](https://user-images.githubusercontent.com/52057929/152686739-082f7a50-f8e4-4a31-b046-7db7fe63d36b.png)
 
-
-<!--
--> Network -> Protocol -> Layer -> TSN -> Output -> Values(Calculation and Generation) - Path(Hops) - Scheduling(Transmission and Window)
--->
 
 # Sintax
 Throughout the checker we make some validation which may be separated at two large groups of target. We are assigning here all the sintatic validations and what we mean by it. This checker receives a file from the user and the first step is to ensure all data meet the requirements to proceed its validations as it's the base for semantic validation. Sintatic validations are more easy to be seen as they raise attetion of the viewer, for instace a sequence of random characters instead of a two digit number.
@@ -62,24 +55,18 @@ For we have made verification of the sintatic of our file now we are to face the
 This is a subtopic which validates the data found on a switch. But What does a switch holds? it holds data of the ports, each port has a cycle duration and an array with the time of start of transmission and its duration.
 
 ### Ports
-This subtopic refers to validations of the ports data to ensure they make sense. The ports contain some important data for TSNSched like transmission of packets and its cycle and window, those are critical to us as they represent the core of TSN and the Scheduling problem, <a href="https://github.com/ACassimiro/TSNsched" target="_blank">Check it out</a> for more details about it.
+This subtopic refers to validations of the ports data to ensure they make sense. The ports contain some important data for TSNSched like the start of transmission of the packets, its cycle duration and time duration of the transmission took to be completed. These info are critical as they represent the main subject of the Scheduling problem of TSN, <a href="https://github.com/ACassimiro/TSNsched" target="_blank">Check it out</a> for more details about it.
 
 ## Flow
-This is a subtopic which validates the flow data and questions related to it. You may find on a flow the average latency, jitter, data time of the packets and hops to end devices all inside the json file the complete details can be found on the log file. The data on the log file is the combination of data found on switches on json file and the flow on json file for each hop so the data brought is completly detailed and specific to a hop. The flow then can be divided into a more specific subtopics for paths and packet times.
+This is a subtopic which validates the flow data and questions related to it. You may find on a flow the average latency, jitter, data time of the packets and hops to end devices all inside the json file, the complete details can be found on the log file. The data on the log file is the combination of data found on switches on json file and the flow on json file for each hop so the data brought is completly detailed and specific to a hop. The flow then can be divided into a more specific subtopics for paths and packet times we discusss more about them on their respectives subtopics.
 
 ### Paths
-The flows contain data about the hops from the origin device to the end device and so there may occour that a node be missing or the scheduling inserting a node in the wrong place. We then made a validation to ensure the path to the end devices follows as they are supposed to on each flow.
+The flows contain data about the hops from the origin device to the end device. It describes each hop from the first switch to the end device by presenting the current node, the destination node and the priority of the hop. If you look to the log file  you'll also see the data of the packets. So there may occour that a node be missing or the scheduling insert a node in the wrong place. We then made a validation to ensure the path to the end devices follows as they are supposed to on each flow.
 
 
 ### Packet Times
+A flow is broken into fragments and it also contains data of the packets. This data on the json file includes the time it arrived at the current node, the time it took to get to the next node and the time it arrived at the next node. On the log file the information is more detailed as it brings the current hop(the origin and destination), the priority of the fragment and like the json file, the arrival on current node, departure e arrival on next node. These information are the core of TSNsched they are critical for the deterministic network we look to accomplish so we verify each of these data to ensure they are correct and the schedule works as intended.
 
-<!--
-NOTES:
-- SINTATIC
-- SEMANTIC
-- FLOWS
-- WHAT'S INSIDE FLOWS?
--->
 ## How to run
 
 There is a jar file inside the folder Checker, in a terminal just run the following command passing the path to the json file followed by the log file, the result will the been shown in the terminal:
