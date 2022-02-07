@@ -32,14 +32,14 @@ There are some topics we need to check. They were selected based on the followin
 
 # Categories
 
-Amoung the many validation it may become hard to track so we considered and approach to categorize them in order to ease management and search for a specific issue. We then separated or validations into subjects and subtopics which are constantly growing as we develop more validation, but it starts by the principle of semantic and sintatic. Sintatic category is about the sintatic part as for misspeling  
+Amoung the many validations we've made it may become hard to track so we considered an approach to categorize them in order to ease management and search for a specific issue. We then separated or validations into subjects and subtopics which are constantly growing as we develop more validations. It's divided by two major groups: semantic and sintatic. Sintatic category is about the sintatic part as for misspeling whilst sematinc is concerned to more deep validation of the data and what they represent because may all the data look good but hold a critical error.
 
-
-![image](https://user-images.githubusercontent.com/52057929/152686739-082f7a50-f8e4-4a31-b046-7db7fe63d36b.png)
+![image](https://user-images.githubusercontent.com/52057929/152810672-e8107856-7116-404c-aa3c-d24552c08b0c.png)
+<h6>Categories' Tree</h6>
 
 
 # Sintax
-Throughout the checker we make some validation which may be separated at two large groups of target. We are assigning here all the sintatic validations and what we mean by it. This checker receives a file from the user and the first step is to ensure all data meet the requirements to proceed its validations as it's the base for semantic validation. Sintatic validations are more easy to be seen as they raise attetion of the viewer, for instace a sequence of random characters instead of a two digit number.
+Throughout the checker we make some validation which may be separated at two major groups, each with different purposes. We are assigning here all the sintatic validations. This checker receives two files from the user and the first step is to ensure all data meet the requirements such as data and file types to proceed its validations as it's the base for semantic validation. Sintatic validations are more easy to be seen as they raise attetion of the viewer, for instace a sequence of letters instead of a two digit number.
 
 ### Data Type
 This subtopic refers to the validation of data type as mentioned earlier a letter in the place of a number, but not only that as this tool is subject to be constantly updated then we may be adding some others sintatic validations. The checker verifies the data type of information brought into the file to be validated to ensure they are the type it's meant to be.
