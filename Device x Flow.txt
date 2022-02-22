@@ -1,0 +1,23 @@
+Device:
+    - defaultPacketSize: default size of every frame sent by this device. Can be overridden by the packetSize variable on the flow object;
+    - defaultPacketSizeUnit: unit of the defaultPacketSize (SizeUnit);
+    - defaultPacketPeriodicity: default interval between frame sendings expressed as time. Can be overridden by the packetPeriodicity variable in the flow object;
+    - defaultPacketPeriodicityUnit: unit of the defaultPacketPeriodicity (TimeUnit);
+    - defaultHardConstraintTime: default maximum latency of every frame sent by this device expressed as time. Can be overridden by the hardConstraintTime variable in the flow object;
+    - defaultHardConstraintTimeUnit: unit of the defaultHardConstraintTime (TimeUnit);
+    - defaultFirstSendingTime: default moment in time in which the first packet of the device is sent expressed as time. Can be overridden by the firstSendingTime variable in the flow object. If the device is the source of multiple flows and the flows do not override the first sending time with different values, or if the transmission of its first packets overlap, this variable will be ignored and a new value for it will be given as output for both flows;
+    - defaultFirstSendingTimeUnit: unit of the defaultFirstSendingTime (TimeUnit);
+
+Flow 
+    - packetSize: size of every frame sent by this device. Overrides the defaultPacketSize variable on the Device object. Expressed as size;
+    - packetSizeUnit: unit of the packetSize (SizeUnit);
+    - packetPeriodicity: interval between frame sendings expressed as time. Overrides the defaltPacketPeriodicity variable in the Device object;
+    - packetPeriodicityUnit: unit of the packetPeriodicity (TimeUnit);
+    - fixedPriority: a boolean variable which, if set to true, will force the flow to have the same priority over all its hops. If set to false, the priority of the flow can change from hop to hop, considering that the network has support for this feature (based on the 802.1Qci standard);
+    - priorityValue: an integer variable where its value ranges from -1 to 7. If it is -1, this variable is given as output. If it is any other value, as long as the fixedPriority variable is set to true, the scheduler will force the flow to be scheduled on the priority number specified by this variable;
+    - firstSendingTime: moment in time in which the first frame sent in this stream of frames is sent. Overrides the defaultFirstSendingTime of the Device object. If the source device is also the source of another flow, and the flows do not override the first sending time with different values, or if the transmission of its first packets overlap, the input value for this variable will be ignored and a new value for it will be given as output. Expressed as time;
+    - firstSendingTimeUnit: unit of the defaultFirstSendingTime (TimeUnit);
+    - hardConstraintTime: maximum latency of every frame sent by this device expressed as time. Overrides the defaultHardConstraintTime variable in the device object;
+    - hardConstraintTimeUnit: unit of the hardConstraintTime (TimeUnit);
+    - maximumJitter: maximum variation of the latency (or, in other words, jitter) of the stream of packets sent in this flow. Expressed as time;
+    - maximumJitterUnit: unit of the maximumJitter variable (TimeUnit);

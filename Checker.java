@@ -10,129 +10,33 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Checker {
-	public static void main(String[] args) throws JSONException, IOException {
+    public static void main(String[] args) throws JSONException, IOException {
+   
+        File file = new File(args[0]);
+        File logfile = new File(args[1]);
+        
+        // File file = new File("logs/GeneratedCode/1_new/output.json");
+        // File logfile = new File("logs/GeneratedCode/1_new/log.txt");
+        
+        Pattern jsonPattern = Pattern.compile("\\w*.json");
+        Matcher jsonMatcher = jsonPattern.matcher(args[0]);
 
-        // File file = new File(args[0]);
-        // File logfile = new File(args[1]);
-        File file = new File("logs/GeneratedCode/1_new/output.json");
-        File logfile = new File("logs/GeneratedCode/1_new/log.txt");
-
-        // define the patttern that will be used to find in the file
-        Pattern departurePattern = Pattern.compile("\\sFragment departure time:\\s(\\d*.\\d*)");
-        Pattern arrivalPattern = Pattern.compile("\\sFragment arrival time:\\s(\\d*.\\d*)");
-        Pattern scheduledPattern = Pattern.compile("\\sFragment scheduled time:\\s(\\d*.\\d*)");
-        Pattern slotStartPattern = Pattern.compile("\\sFragment slot start 0:\\s(\\d*.\\d*)");
-        Pattern slotDurationPattern = Pattern.compile("\\sFragment slot duration 0\\s:\\s(\\d*.\\d*)");
-
-        // creating a scanner to scan the file line by line
-        Scanner sc = new Scanner(logfile);
-
-        // variables to auxiliate checking time logs
-        int lineCounter = 0;
-        Float slotStart = (float) 0.0;
-        Float slotDuration = (float) 0.0;
-
-        // parse the file line by line
-        while (sc.hasNextLine()){
-
-            // track lines to ease visualization
-            lineCounter++;
-            String line = sc.nextLine().toString();
-
-            // matchers to find the patterns
-            Matcher departureMatcher = departurePattern.matcher(line);
-            Matcher arrivalMatcher = arrivalPattern.matcher(line);
-            Matcher scheduledMatcher = scheduledPattern.matcher(line);
-
-            Matcher slotStartMatcher = slotStartPattern.matcher(line);
-            Matcher slotDurationMatcher = slotDurationPattern.matcher(line);
-
-            Float departure = (float) 0.0;
-            Float arrival = (float) 0.0;
-            Float scheduled = (float) 0.0;
-
-            // find the start time packets are sent
-            if(slotStartMatcher.find()){
-                slotStart = Float.parseFloat(slotStartMatcher.group(1));
-
-                System.out.println("=======================");
-
-                if(slotStart < 0){
-                    System.out.print("Typechecking value: Slot start time can't be negative (line " + lineCounter + ")");
-                    return;
-                }
-                System.out.println("Slot Start time: "+slotStart+ " (line " + lineCounter + ")");
-            }
-
-            // find the time a packet takes to arrive
-            if(slotDurationMatcher.find()){
-                slotDuration = Float.parseFloat(slotDurationMatcher.group(1));
-
-                if(slotDuration < 0){
-                    System.out.print("Typechecking value: Slot duration time can't be negative (line " + lineCounter + ")");
-                    return;
-                }
-                System.out.println("Slot duration time: "+slotDuration+ " (line " + lineCounter + ")");
-            }
-
-            // find the derpature time of the log file
-            if(departureMatcher.find()){
-                departure = Float.parseFloat(departureMatcher.group(1));
-
-                if(departure < 0){
-                    // throw new IllegalArgumentException("Negative number found!");
-                    System.out.print("Typechecking value: Departure time can't be negative (line " + lineCounter + ")");
-                    return;
-                }
-                // System.out.println(departureMatcher.group(1));
-            }
-
-            // find the arrival time of the log file
-            if(arrivalMatcher.find()){
-                arrival = Float.parseFloat(arrivalMatcher.group(1));
-
-                if(arrival < 0){
-                    System.out.print("Typechecking value: Arrival time can't be negative (line " + lineCounter + ")");
-                    return;
-                }
-                // System.out.println(arrivalMatcher.group(1));
-            }
-
-            // find the schedule time, which is start time + duration
-            if(scheduledMatcher.find()){
-                scheduled = Float.parseFloat(scheduledMatcher.group(1));
-
-                if(scheduled < 0){
-                    System.out.print("Typechecking value: Shceduled time can't be negative (line " + lineCounter + ")");
-                    return;
-                }
-                System.out.println("Scheduled time: "+scheduledMatcher.group(1) + " (line " + lineCounter + ")");
-                System.out.println("Expected scheduled time: " + round(slotDuration + slotStart, 3));
-                
-                if(scheduled == round(slotDuration + slotStart, 3)){
-                    System.out.println("Ok");
-                }
-                else {
-                    System.out.println("Not ok! (line " + lineCounter + ")");
-                }
-                System.out.println("=======================");
-                System.out.println();
-            }    
+        if(!jsonMatcher.find()){
+            System.out.println("Format specified not reconized! You must pass a JSON file as input");
+            return;
         }
 
         JSONObject switchData = getPriorityData(file);
         JSONObject timePacketsObject = getTimePackets(file);
         JSONObject flowsFrag = getFlowsFragments(logfile);
+
+        // System.out.println(timePacketsObject.getJSONArray("flow0"));
+
 
         // checking if a port has more than one slot
         // if(!hasMoreSlots(switchData).equals("false")){
@@ -140,10 +44,13 @@ public class Checker {
         //     System.out.println(hasMoreSlots(switchData));
         // }
 
-        checkPriority(switchData);
+        // validations
+        checkLogs(logfile);
+        checkPortTransmission(switchData);
         checkTransmissionWindow(switchData); 
         CheckTimePackets(timePacketsObject, logfile);
         checkHop(logfile, flowsFrag);
+        checkPriorityWindow(file, logfile, timePacketsObject);
         
         // JSONObject path = getMultiPath(logfile);
         // System.out.println(path);
@@ -161,8 +68,6 @@ public class Checker {
         // }
 
         // System.out.println(timePacketsObject.length());
-
-        sc.close();
     }
 
     public static JSONObject getTimePackets(File file) throws FileNotFoundException{
@@ -248,6 +153,7 @@ public class Checker {
         return false;
     }
 
+    // checks if the time of the packet times are negative
     public static void CheckTimePackets(JSONObject timePacketsObject, File logFile) throws FileNotFoundException, JSONException{
         for(int i = 0; i < timePacketsObject.length(); i++){
             for(int j = 0; j < timePacketsObject.getJSONArray("flow"+i).length(); j++){
@@ -279,7 +185,6 @@ public class Checker {
                             packetScheduled.equals(packetScheduledTocompare)){
                             if(sameSwitch(logFile, timePacketsObject.getJSONArray("flow"+i).getJSONObject(j), timePacketsObject.getJSONArray("flow"+i).getJSONObject(k)).equals("false")){
                                 System.out.println("Same time data found, fragments:");
-                                // System.out.println(sameSwitch(logFile, timePacketsObject.getJSONArray("flow"+i).getJSONObject(j), timePacketsObject.getJSONArray("flow"+i).getJSONObject(k)));
                                 System.out.println(timePacketsObject.getJSONArray("flow"+i).getJSONObject(j));
                                 System.out.println(timePacketsObject.getJSONArray("flow"+i).getJSONObject(k));
                             }
@@ -294,10 +199,10 @@ public class Checker {
         Scanner sc = new Scanner(file);
 
         ArrayList<Integer> flowFragmentList = new ArrayList<Integer>();
-        ArrayList<String> currentFragmentNodeList = new ArrayList<String>();
+        JSONArray currentFragmentNodeList = new JSONArray();
 
         // define the patttern that will be used to find in the file 
-        Pattern flowFragmentPattern = Pattern.compile("\\sFragment name:\\s(flow\\d*)Fragment(\\d*)");
+        Pattern flowFragmentPattern = Pattern.compile("\\sFragment name:\\s((flow\\d*)Fragment(\\d*))");
         Pattern fragmentNodePattern = Pattern.compile("\\sFragment node:\\s(switch\\d*)");
         Pattern fragmentNextNodePattern = Pattern.compile("\\sFragment next hop:\\s(switch\\d*|dev\\d*)");
         Pattern devPattern = Pattern.compile("(dev\\d*),");
@@ -305,8 +210,9 @@ public class Checker {
         Pattern pathToPattern = Pattern.compile("\\sPath\\sto\\s(dev\\d*):");
 
         // varibles to auxiliate and control actions
+        String flowFragmentNameFull = "";
         String flowFragmentName = "";
-        String flowFragment = "";
+        String flowFragmentNumber = "";
         String controller = "";
         int lineCounter = 0;
 
@@ -322,13 +228,14 @@ public class Checker {
 
             // find the flow fragment name
             if(flowFragmentNameMatcher.find()){
-                flowFragmentName = flowFragmentNameMatcher.group(1);
-                flowFragment = flowFragmentNameMatcher.group(2);
+                flowFragmentName = flowFragmentNameMatcher.group(2);
+                flowFragmentNameFull = flowFragmentNameMatcher.group(1);
+                flowFragmentNumber = flowFragmentNameMatcher.group(3);
                 
                 int frag = objToCompare.getInt("fragment");
                 int compareFrag = objToBeCompared.getInt("fragment");
-                if(frag == Integer.parseInt(flowFragment) || compareFrag == Integer.parseInt(flowFragment)){
-                    flowFragmentList.add(Integer.parseInt(flowFragment));
+                if(frag == Integer.parseInt(flowFragmentNumber) || compareFrag == Integer.parseInt(flowFragmentNumber)){
+                    flowFragmentList.add(Integer.parseInt(flowFragmentNumber));
                     controller = "first";
                 }
 
@@ -344,27 +251,62 @@ public class Checker {
             if(fragmentNodeMatcher.find()){
                 String fragmentNode = fragmentNodeMatcher.group(1);
 
+                
                 if(controller == "second" || controller == "first"){
-                    currentFragmentNodeList.add(fragmentNode);
+
+                    JSONObject currentNodeAndFlowFragment = new JSONObject();
+
+                    currentNodeAndFlowFragment.put("fragmentNode", fragmentNode);
+                    currentNodeAndFlowFragment.put("flowFragmentNameFull", flowFragmentNameFull);
+                    currentFragmentNodeList.put(currentNodeAndFlowFragment);
+                    // System.out.println(currentNodeAndFlowFragment);
                     // System.out.println(fragmentNodeMatcher.group(1) + " " + lineCounter);
                 }
 
-                if(currentFragmentNodeList.size() == 2){
-                    if(currentFragmentNodeList.get(0).equals(currentFragmentNodeList.get(1))){
+                if(currentFragmentNodeList.length() == 2){
+                    if(!currentFragmentNodeList.optJSONObject(0).optString("fragmentNode").equals(currentFragmentNodeList.optJSONObject(1).optString("fragmentNode"))){
                         // System.out.println(currentFragmentNodeList.get(0) + " ==? " + currentFragmentNodeList.get(1));
                         JSONObject path = getMultiPath(file);
+                        JSONObject flowFragmentInfo = getFlowsFragments(file);
+                        // System.out.println(currentFragmentNodeList.optJSONObject(1));
+
+                        // System.out.println(currentFragmentNodeList.optJSONObject(0));
+                        // System.out.println(currentFragmentNodeList.optJSONObject(1));
                         
+                        for(int i = 0; i < path.optJSONArray(flowFragmentName).length(); i++){
+                            for(int j = 0; j < path.optJSONArray(flowFragmentName).optJSONArray(i).length(); j++){
+                                if(currentFragmentNodeList.optJSONObject(0).optString("fragmentNode").equals(path.optJSONArray(flowFragmentName).optJSONArray(i).getString(j))){
+                                    // System.out.println(currentFragmentNodeList.optJSONObject(0).optString("flowFragmentNameFull"));
+                                    // System.out.println(j);
+                                    String nexHop = path.optJSONArray(flowFragmentName).optJSONArray(i).getString(j+1);
+
+                                    // System.out.println("Index 0: " + path.optJSONArray(flowFragmentName).optJSONArray(i).getString(j+1));
+                                    for(int k = 0; k < path.optJSONArray(flowFragmentName).length(); k++){
+                                        for(int l = 0; l < path.optJSONArray(flowFragmentName).optJSONArray(k).length(); l++){
+                                            if(currentFragmentNodeList.optJSONObject(1).optString("fragmentNode").equals(path.optJSONArray(flowFragmentName).optJSONArray(k).getString(l))){
+                                                String nexHopToCompare = path.optJSONArray(flowFragmentName).optJSONArray(k).getString(l+1);
+                                                // System.out.println("Index 1: " + path.optJSONArray(flowFragmentName).optJSONArray(k).getString(l+1));
+
+                                                if(nexHop.equals(nexHopToCompare)){
+                                                    sc.close();
+                                                    return "false";
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         // System.out.println(path.get(flowFragmentName));
-                        sc.close();
-                        return "true";
+                        // sc.close();
+                        // return "false";
                     }
                 }
             }
         }
-
         
         sc.close();
-        return "false";
+        return "true";
     }
 
     public static int has(JSONObject info, String name){
@@ -481,15 +423,15 @@ public class Checker {
         return "false";
     }
 
-    /* 
-        function to get the next closest number of a that is divided by a number 'b',
-    */
+    
+    //  function to get the next closest number of 'a' that is divided by a number 'b'
+
     public static Double closestInteger(Double a, int b) {
         Double c2 = (a + b) - (a % b);
         return c2;
     }
 
-    // function to check if a flow is not sending packets after it's transmission window's limits
+    // function to check if a flow is not overpassing its transmission window
     public static void checkTransmissionWindow(JSONObject info){
 
         for(int i = 0; i < info.getJSONArray("switches").length(); i++){
@@ -518,7 +460,7 @@ public class Checker {
         }
     }
 
-    // aux function to make checkPriotiy shorter, currently not used
+    // aux function to make checkTransmissionWindow shorter, currently not used
     /*public static Boolean verifyPriority(JSONArray ports){
         for(int i = 0; i < ports.length(); i++){
             int prioritySlotDataLength = ports.getJSONObject(i).getJSONArray("prioritySlotsData").length();
@@ -543,16 +485,30 @@ public class Checker {
         return false;
     }*/
 
-    // function to check if two ports have the same slotStart
-    public static void checkPriority(JSONObject info){
+    // function to check if two packets are being transmitted at same time at same port
+    public static void checkPortTransmission(JSONObject info){
         for(int i = 0; i < info.getJSONArray("switches").length(); i++){
             for(int j = 0; j < info.getJSONArray("switches").getJSONObject(i).getJSONArray("ports").length() ; j++){
                 int prioritySlotDataLength = info.getJSONArray("switches").getJSONObject(i).getJSONArray("ports").getJSONObject(j).getJSONArray("prioritySlotsData").length();  
+                JSONArray prioritySlotDataArray = info.getJSONArray("switches").getJSONObject(i).getJSONArray("ports").getJSONObject(j).getJSONArray("prioritySlotsData");
+                
                 if(prioritySlotDataLength > 1){
+
+                    // checking order of the packets of same port and priority
+                    if(!isPacketInOrder(prioritySlotDataArray)){
+                        JSONObject objIssue = info.getJSONArray("switches").getJSONObject(i).getJSONArray("ports").getJSONObject(j);
+                        System.out.println("TRANSMISSION ERROR! Packets are not being transmitted in order");
+                        System.out.println("PROBLEM FOUND ON SWITCH: " + info.getJSONArray("switches").getJSONObject(i).getString("name"));
+                        System.out.println("PROBLEM FOUND ON PORT: " + objIssue.getString("portName"));
+
+                        return;
+                    }
+
                     String name = info.getJSONArray("switches").getJSONObject(i).getString("name");
                     String portName = info.getJSONArray("switches").getJSONObject(i).getJSONArray("ports").getJSONObject(j).getString("portName");
                     for(int k = 0; k < prioritySlotDataLength; k++){
                         int slotDataLength = info.getJSONArray("switches").getJSONObject(i).getJSONArray("ports").getJSONObject(j).getJSONArray("prioritySlotsData").getJSONObject(k).getJSONArray("slotsData").length();
+                        
                         for (int l = 0; l < slotDataLength; l++) {
                             Double slotStart = info.getJSONArray("switches").getJSONObject(i).getJSONArray("ports").getJSONObject(j).getJSONArray("prioritySlotsData").getJSONObject(k).getJSONArray("slotsData").getJSONObject(l).getDouble("slotStart");
                             int counter = 0;
@@ -560,11 +516,12 @@ public class Checker {
                             for(int a = 0; a < prioritySlotDataLength; a++){
                                 for (int b = 0; b < slotDataLength; b++) {
                                     Double slotStartToBeCompared = info.getJSONArray("switches").getJSONObject(i).getJSONArray("ports").getJSONObject(j).getJSONArray("prioritySlotsData").getJSONObject(a).getJSONArray("slotsData").getJSONObject(b).getDouble("slotStart");
+
                                     if(slotStart.equals(slotStartToBeCompared)){
                                         counter++;
                                         if(counter > 1){
                                             System.out.println(name + " " + portName);
-                                            System.out.println("Time scheduling error! Duplicated SlotStart on the same port");
+                                            System.out.println("Time scheduling error! Two packet are being transmitted on the same port");
                                             return;
                                         }
                                     }
@@ -670,6 +627,7 @@ public class Checker {
         sc2.close();
     }    
 
+    // function to get paths
     public static JSONObject getMultiPath(File file) throws FileNotFoundException{
 
         Scanner sc2 = new Scanner(file);
@@ -761,6 +719,7 @@ public class Checker {
         return paths;
     }
 
+    // function to get flow fragments
     public static JSONObject getFlowsFragments(File file) throws FileNotFoundException{
 
         Scanner sc2 = new Scanner(file);
@@ -823,7 +782,341 @@ public class Checker {
         sc2.close();
         return fragments;
     }
-}
 
+    // function to check wheter the packets of same port and priority are being transmitted in order of arrival
+    public static boolean isPacketInOrder(JSONArray prioritySlotData) {
+        for(int i = 0; i < prioritySlotData.length(); i++){
+            JSONArray tempArray = new JSONArray();
+            tempArray.put(prioritySlotData.getJSONObject(i));
+
+            for(int j = 0; j < prioritySlotData.length(); j++){
+                if(i != j){
+                    int currentPriority = prioritySlotData.getJSONObject(i).getInt("priority");
+                    int priorityToBeCompared = prioritySlotData.getJSONObject(j).getInt("priority");
+                    if(currentPriority == priorityToBeCompared){
+                        tempArray.put(prioritySlotData.getJSONObject(j));
+                    }
+                }
+            }
+
+            for(int k = 0; k < tempArray.length(); k++){
+                if(k != 0){
+                    // JSONArray slotDataArray = tempArray.getJSONObject(k).getJSONArray("slotsData");
+
+                    JSONObject slotDataObject = tempArray.getJSONObject(k).getJSONArray("slotsData").getJSONObject(0);
+                    JSONObject previousSlotDataObject = tempArray.getJSONObject(k-1).getJSONArray("slotsData").getJSONObject(0);
+
+                    if(slotDataObject.getDouble("slotStart") < previousSlotDataObject.getDouble("slotStart")){
+                        // System.out.println("Time scheduling error! Packets are not being transmitted in order");
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    // function to check the logs on the log file
+    public static void checkLogs(File logfile) throws FileNotFoundException {
+
+        // define the patttern that will be used to find in the file
+        Pattern departurePattern = Pattern.compile("\\sFragment departure time:\\s(\\d*.\\d*)");
+        Pattern arrivalPattern = Pattern.compile("\\sFragment arrival time:\\s(\\d*.\\d*)");
+        Pattern scheduledPattern = Pattern.compile("\\sFragment scheduled time:\\s(\\d*.\\d*)");
+        Pattern slotStartPattern = Pattern.compile("\\sFragment slot start 0:\\s(\\d*.\\d*)");
+        Pattern slotDurationPattern = Pattern.compile("\\sFragment slot duration 0\\s:\\s(\\d*.\\d*)");
+    
+        // creating a scanner to scan the file line by line
+        Scanner sc = new Scanner(logfile);
+    
+        // variables to auxiliate checking time logs
+        int lineCounter = 0;
+        Float slotStart = (float) 0.0;
+        Float slotDuration = (float) 0.0;
+    
+        // parse the file line by line
+        while (sc.hasNextLine()){
+    
+            // track lines to ease visualization
+            lineCounter++;
+            String line = sc.nextLine().toString();
+    
+            // matchers to find the patterns
+            Matcher departureMatcher = departurePattern.matcher(line);
+            Matcher arrivalMatcher = arrivalPattern.matcher(line);
+            Matcher scheduledMatcher = scheduledPattern.matcher(line);
+    
+            Matcher slotStartMatcher = slotStartPattern.matcher(line);
+            Matcher slotDurationMatcher = slotDurationPattern.matcher(line);
+    
+            Float departure = (float) 0.0;
+            Float arrival = (float) 0.0;
+            Float scheduled = (float) 0.0;
+    
+            // find the start time packets are sent
+            if(slotStartMatcher.find()){
+                slotStart = Float.parseFloat(slotStartMatcher.group(1));
+    
+                System.out.println("=======================");
+    
+                if(slotStart < 0){
+                    System.out.print("Typechecking value: Slot start time can't be negative (line " + lineCounter + ")");
+                    return;
+                }
+                System.out.println("Slot Start time: "+slotStart+ " (line " + lineCounter + ")");
+            }
+    
+            // find the time a packet takes to arrive
+            if(slotDurationMatcher.find()){
+                slotDuration = Float.parseFloat(slotDurationMatcher.group(1));
+    
+                if(slotDuration < 0){
+                    System.out.print("Typechecking value: Slot duration time can't be negative (line " + lineCounter + ")");
+                    return;
+                }
+                System.out.println("Slot duration time: "+slotDuration+ " (line " + lineCounter + ")");
+            }
+    
+            // find the derpature time of the log file
+            if(departureMatcher.find()){
+                departure = Float.parseFloat(departureMatcher.group(1));
+    
+                if(departure < 0){
+                    // throw new IllegalArgumentException("Negative number found!");
+                    System.out.print("Typechecking value: Departure time can't be negative (line " + lineCounter + ")");
+                    return;
+                }
+                // System.out.println(departureMatcher.group(1));
+            }
+    
+            // find the arrival time of the log file
+            if(arrivalMatcher.find()){
+                arrival = Float.parseFloat(arrivalMatcher.group(1));
+    
+                if(arrival < 0){
+                    System.out.print("Typechecking value: Arrival time can't be negative (line " + lineCounter + ")");
+                    return;
+                }
+                // System.out.println(arrivalMatcher.group(1));
+            }
+    
+            // find the schedule time, which is start time + duration
+            if(scheduledMatcher.find()){
+                scheduled = Float.parseFloat(scheduledMatcher.group(1));
+    
+                if(scheduled < 0){
+                    System.out.print("Typechecking value: Shceduled time can't be negative (line " + lineCounter + ")");
+                    return;
+                }
+                System.out.println("Scheduled time: "+scheduledMatcher.group(1) + " (line " + lineCounter + ")");
+                System.out.println("Expected scheduled time: " + round(slotDuration + slotStart, 3));
+                
+                if(scheduled == round(slotDuration + slotStart, 3)){
+                    System.out.println("Ok");
+                }
+                else {
+                    System.out.println("Not ok! (line " + lineCounter + ")");
+                }
+                System.out.println("=======================");
+                System.out.println();
+            }    
+        }
+        sc.close();
+    }
+
+    // function to check wheter the packets are being transmitted on their transmission window
+    public static void checkPriorityWindow(File jsonFile, File logFile, JSONObject timePacketsObject) throws FileNotFoundException {
+        Scanner sc = new Scanner(jsonFile);
+        String jsonString= "";
+
+        while (sc.hasNextLine()){
+            String line = sc.nextLine().toString();
+            jsonString += line;
+            jsonString += "\n";
+        }
+
+        JSONObject jsonObj = new JSONObject(jsonString);
+
+        JSONArray priorityWindows = new JSONArray();
+
+        for(int i = 0; i < jsonObj.getJSONArray("flows").length(); i++) {
+            for(int j = 0; j < jsonObj.getJSONArray("flows").getJSONObject(i).getJSONArray("hops").length(); j++) {
+                String flowName = jsonObj.getJSONArray("flows").getJSONObject(i).getString("name");
+                // System.out.println(flowName + " Fragment: " + (j+1));
+
+                JSONObject temp = jsonObj.getJSONArray("flows").getJSONObject(i).getJSONArray("hops").getJSONObject(j);
+                JSONObject data = new JSONObject();
+
+                data.put("name", temp.getString("currentNodeName"));
+                data.put("destination", temp.getString("nextNodeName"));
+                data.put("flow", flowName);
+                data.put("fragment", (j+1));
+                data.put("priority", temp.getInt("priority"));
+                priorityWindows.put(data);
+            }
+        }
+
+        // System.out.println(priorityWindows);
+
+        ArrayList<String> flowsFragmentsCheckedArray = new ArrayList<String>();
+
+        for(int i = 0; i < jsonObj.getJSONArray("switches").length(); i++) {
+            for(int j = 0; j < jsonObj.getJSONArray("switches").getJSONObject(i).getJSONArray("ports").length(); j++){
+                JSONArray prioritySlotsData = jsonObj.getJSONArray("switches").getJSONObject(i).getJSONArray("ports").getJSONObject(j).getJSONArray("prioritySlotsData");
+                String switchName = jsonObj.getJSONArray("switches").getJSONObject(i).getString("name");
+
+                if(prioritySlotsData.length() > 0) {
+                    for(int k = 0; k < prioritySlotsData.length(); k++){
+                        Float slotStart = prioritySlotsData.getJSONObject(k).getJSONArray("slotsData").getJSONObject(0).getFloat("slotStart");
+                        Float slotDuration = prioritySlotsData.getJSONObject(k).getJSONArray("slotsData").getJSONObject(0).getFloat("slotDuration");
+
+                        if(!hasSamePriority(priorityWindows, prioritySlotsData, switchName)){
+                            System.out.println("Error found");
+                            System.out.println("switch: " + switchName + " priority: " + prioritySlotsData.getJSONObject(0).getInt("priority"));
+                        }
+
+                        for(int a = 0; a < priorityWindows.length(); a++){
+                            if(priorityWindows.getJSONObject(a).getString("name").equals(switchName)){
+                                if(checkTimes(logFile, priorityWindows.getJSONObject(a), slotStart, slotDuration).equals("procceed")){
+                                    // System.out.println(priorityWindows.getJSONObject(a).getString("flow") + " Fragment: " + priorityWindows.getJSONObject(a).getInt("fragment") + " is fine");
+                                    String flowFragmentChecked = priorityWindows.getJSONObject(a).getString("flow") + "Fragment: " + priorityWindows.getJSONObject(a).getInt("fragment");
+                                    
+                                    if(!flowsFragmentsCheckedArray.contains(flowFragmentChecked)){
+                                        flowsFragmentsCheckedArray.add(flowFragmentChecked);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        for(int i = 0; i < priorityWindows.length(); i++){
+            String flow = priorityWindows.getJSONObject(i).getString("flow");
+            String fragment = "Fragment: " + priorityWindows.getJSONObject(i).getInt("fragment");
+            String flowFragment = flow+fragment;
+            if(!flowsFragmentsCheckedArray.contains(flowFragment)){
+                System.out.println(flowFragment + " does not coincide with the json data");
+            }
+        }
+
+
+        // System.out.println(jsonObj.getJSONArray("flows").getJSONObject(0).getJSONArray("hops").getJSONObject(0));
+        // System.out.println(priorityWindows);
+    }
+
+
+    public static String checkTimes(File file, JSONObject objToCompare, Float slotStartToCompare, Float slotDurationToCompare) throws FileNotFoundException{
+        Scanner sc = new Scanner(file);
+
+        // define the patttern that will be used to find in the file 
+        Pattern flowFragmentPattern = Pattern.compile("\\sFragment name:\\s((flow\\d*)Fragment(\\d*))");
+        Pattern fragmentNodePattern = Pattern.compile("\\sFragment node:\\s(switch\\d*)");
+        Pattern fragmentNextNodePattern = Pattern.compile("\\sFragment next hop:\\s(switch\\d*|dev\\d*)");
+
+        Pattern slotStartPattern = Pattern.compile("\\sFragment slot start 0:\\s(\\d*.\\d*)");
+        Pattern slotDurationPattern = Pattern.compile("\\sFragment slot duration 0\\s:\\s(\\d*.\\d*)");
+
+        Pattern priorityPattern = Pattern.compile("\\sFragment priority: (\\d*)");
+
+
+        // varibles to auxiliate and control actions
+        String flowFragmentNameFull = "";
+        String flowFragmentName = "";
+        String flowFragmentNumber = "";
+        String controller = "";
+        int lineCounter = 0;
+        
+        Float slotStart = (float) 0.0;
+        Float slotDuration = (float) 0.0;
+        int priority = 0;
+
+        // parse the file
+        while (sc.hasNextLine()){
+            String line = sc.nextLine().toString();
+            lineCounter++;
+
+            // matchers to find patterns
+            Matcher flowFragmentNameMatcher = flowFragmentPattern.matcher(line);
+            Matcher fragmentNodeMatcher = fragmentNodePattern.matcher(line);
+            Matcher fragmentNextNodeMatcher = fragmentNextNodePattern.matcher(line);
+
+            Matcher slotStartMatcher = slotStartPattern.matcher(line);
+            Matcher slotDurationMatcher = slotDurationPattern.matcher(line);
+
+            Matcher priorityMatcher = priorityPattern.matcher(line);
+
+            // find the flow fragment name
+            if(flowFragmentNameMatcher.find()){
+                flowFragmentName = flowFragmentNameMatcher.group(2);
+                flowFragmentNameFull = flowFragmentNameMatcher.group(1);
+                flowFragmentNumber = flowFragmentNameMatcher.group(3);
+                
+                int frag = objToCompare.getInt("fragment");
+                String flow = objToCompare.getString("flow");
+                if(frag == Integer.parseInt(flowFragmentNumber) && flow.equals(flowFragmentName)){
+                    controller = "found";
+                }
+                // System.out.println(flowFragment);
+            }
+
+            if(priorityMatcher.find() && controller.equals("found")){
+                priority = Integer.parseInt(priorityMatcher.group(1));
+                if(priority != objToCompare.getInt("priority")){
+                    System.out.println("Something went wrong");
+                }
+            }
+
+            if(slotStartMatcher.find() && controller.equals("found")){
+                slotStart = Float.parseFloat(slotStartMatcher.group(1));
+        
+                if((double) slotStart == slotStartToCompare){
+                    // System.out.println(slotStart + " " + slotStartToCompare);
+                    // System.out.println(objToCompare);
+                    // System.out.println("Slot Start time: "+slotStart+ " (line " + lineCounter + ")");
+                }
+            }
+    
+            // find the time a packet takes to arrive
+            if(slotDurationMatcher.find() && controller.equals("found")){
+                slotDuration = Float.parseFloat(slotDurationMatcher.group(1));
+    
+                if((double) slotDuration == slotDurationToCompare){
+                    // System.out.println(slotDuration + " " + slotDurationToCompare);
+                    // System.out.println(objToCompare);
+
+                    // System.out.println("Slot duration time: "+slotDuration+ " (line " + lineCounter + ")");
+                    sc.close();
+                    return "procceed";
+                }
+
+                controller = "";
+            }
+        }
+        
+        sc.close();
+        return "check";
+    }
+
+    // aux function to auxiliate checkPriorityWindwo by finding the switch name and priority on json object
+    public static boolean hasSamePriority(JSONArray priorityWindows, JSONArray prioritySlotsData, String switchName){
+        
+        for(int a = 0; a < priorityWindows.length(); a++){
+            String currentParsedSwitch = priorityWindows.getJSONObject(a).getString("name");
+            Integer currentParsedPriority = priorityWindows.getJSONObject(a).getInt("priority");
+
+            if(switchName.equals(currentParsedSwitch) && prioritySlotsData.getJSONObject(0).getInt("priority") == currentParsedPriority){
+               return true;
+                // System.out.println("found");
+                // System.out.println(switchName + ' ' + currentParsedSwitch);
+                // System.out.println(prioritySlotsData.getJSONObject(0).getInt("priority") + "-" + currentParsedPriority);
+            }
+        }
+
+        return false;
+    }
+}
 
 
