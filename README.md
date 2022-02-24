@@ -5,20 +5,20 @@ The <a href="https://github.com/ACassimiro/TSNsched">TSNSched</a> provides three
 ### Table of Contents
 
 - [Criterias](#criterias)
-	- [Typechecking value](#typechecking-value)
-	- [Well formed hops ](#well-formed-hops)
-	- [Consistent path nodes](#consistent-path-nodes)
-	- [Transmission windows consistency](#transmission-windows-consistency)
+  - [Typechecking value](#typechecking-value)
+  - [Well formed hops ](#well-formed-hops)
+  - [Consistent path nodes](#consistent-path-nodes)
+  - [Transmission windows consistency](#transmission-windows-consistency)
 - [Categories](#categories)
   * [Sintax](#sintax)
-  	* [Data Type](#data-type)
-  	* [File Type](#file-type)
+    * [Data Type](#data-type)
+    * [File Type](#file-type)
   * [Semantic](#semantic)
-  	* [Switches](#switches)
-  		* [Ports](#ports)
-  	* [Flow](#flow)
-  		* [Paths](#paths)
-  		* [Packet times](#packet-times)
+    * [Switches](#switches)
+      * [Ports](#ports)
+    * [Flow](#flow)
+      * [Paths](#paths)
+      * [Packet times](#packet-times)
  - [How to run](#how-to-run)
 
 # Criterias
@@ -28,7 +28,9 @@ There are some topics we need to check. They were selected based on the followin
 - Criteria 1: All values of time(Departure, arrival and scheduled times) are positive (Typechecking-value)
 - Criteria 2: Time of sent plus duration time of transmission must be equal to the scheduled time. (Well formed hops)
 - Criteria 3: Consistent path nodes.
-- Criteria 4: Transmission windows consistency.
+- Criteria 4: Each packet must be transmitted at its correspondent priority window.
+- Criteria 5: Two packets can't be transmitted at same time at same port.
+- Criteria 6: Packets at the same port of same priority must be sent in arrival order(FIFO like).
 
 # Categories
 
@@ -139,23 +141,23 @@ This is how both start of transmission and transmission time are showed. We need
 "firstCycleStart": 0.0
 "prioritySlotsData": 
 [
-	{
-	  "slotsData": [
-	    {
-	      "slotDuration": 0.576,
-	      "slotStart": 499.424
-	    }
-	  ],
-	  "priority": 0
-	},
-	{
-	  "slotsData": [
-	    {
-	      "slotDuration": 0.576,
-	      "slotStart": 489.568
-	    }
-	  ],
-	  "priority": 1
-	}
+  {
+    "slotsData": [
+      {
+        "slotDuration": 0.576,
+        "slotStart": 499.424
+      }
+    ],
+    "priority": 0
+  },
+  {
+    "slotsData": [
+      {
+        "slotDuration": 0.576,
+        "slotStart": 489.568
+      }
+    ],
+    "priority": 1
+  }
 ]
 ```
