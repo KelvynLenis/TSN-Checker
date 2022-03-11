@@ -36,7 +36,7 @@ There are some topics we need to check. They were selected based on the followin
 
 Among the many validations we've made, it may become hard to track, so we considered an approach to categorize them in order to ease management and search for a specific issue. We then separated our validations into topics and subtopics, which are constantly growing as we develop more validations. It's divided into two major groups: semantic and syntactic. Syntactic category is about the syntactic part as for misspelling, while semantic is related to deeper validation of the data and what they represent because may all the data look good but hold a critical error.
 
-![image](https://user-images.githubusercontent.com/52057929/152810672-e8107856-7116-404c-aa3c-d24552c08b0c.png)
+![image](https://user-images.githubusercontent.com/52057929/157877952-527122bb-eb23-4b8d-b181-a4b26bda9980.png)
 <h6>Categories' Tree</h6>
 
 
