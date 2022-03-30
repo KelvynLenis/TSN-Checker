@@ -1,4 +1,4 @@
-package schedule_generator;
+package examples.Topologies;
 import com.tsnsched.core.interface_manager.JSONParser;
 
 import com.tsnsched.core.network.*;

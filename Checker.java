@@ -45,12 +45,13 @@ public class Checker {
         // }
 
         // validations
-        checkLogs(logfile);
-        checkPortTransmission(switchData);
-        checkTransmissionWindow(switchData); 
-        CheckTimePackets(timePacketsObject, logfile);
-        checkHop(logfile, flowsFrag);
-        checkPriorityWindow(file, logfile, timePacketsObject);
+        checkWellformedHops(file, flowsFrag);
+        // checkLogs(logfile);
+        // checkPortTransmission(switchData);
+        // checkTransmissionWindow(switchData); 
+        // CheckTimePackets(timePacketsObject, logfile);
+        // checkHop(logfile, flowsFrag);
+        // checkPriorityWindow(file, logfile, timePacketsObject);
         
         // JSONObject path = getMultiPath(logfile);
         // System.out.println(path);
@@ -267,7 +268,7 @@ public class Checker {
                     if(!currentFragmentNodeList.optJSONObject(0).optString("fragmentNode").equals(currentFragmentNodeList.optJSONObject(1).optString("fragmentNode"))){
                         // System.out.println(currentFragmentNodeList.get(0) + " ==? " + currentFragmentNodeList.get(1));
                         JSONObject path = getMultiPath(file);
-                        JSONObject flowFragmentInfo = getFlowsFragments(file);
+                        // JSONObject flowFragmentInfo = getFlowsFragments(file);
                         // System.out.println(currentFragmentNodeList.optJSONObject(1));
 
                         // System.out.println(currentFragmentNodeList.optJSONObject(0));
@@ -783,6 +784,47 @@ public class Checker {
         return fragments;
     }
 
+    // function to check the correctness of the time node to node
+    public static void checkWellformedHops(File jsonFile, JSONObject nodesToBeVerified) throws FileNotFoundException {
+        Scanner sc = new Scanner(jsonFile);
+        String jsonString= "";
+
+        while (sc.hasNextLine()){
+            String line = sc.nextLine().toString();
+            jsonString += line;
+            jsonString += "\n";
+        }
+
+        JSONObject jsonObj = new JSONObject(jsonString);
+
+        for(int flow = 0; flow < nodesToBeVerified.length(); flow++) {
+            for (int i = 0; i < nodesToBeVerified.getJSONArray("flow"+flow).length(); i++) {
+                for(int j = 0; j < nodesToBeVerified.getJSONArray("flow"+flow).getJSONArray(i).length(); j++){
+                    String flowFragment = nodesToBeVerified.getJSONArray("flow"+flow).getJSONArray(i).getJSONObject(j).getString("FlowAndFragment");
+                    int intervalSize = nodesToBeVerified.getJSONArray("flow"+flow).getJSONArray(i).getJSONObject(j).length();
+
+                    for(int flowNumber = 0; flowNumber < jsonObj.getJSONArray("flows").length(); flowNumber++){
+                        for (int fragmentIndex = 0; fragmentIndex < jsonObj.getJSONArray("flows").getJSONObject(flowNumber).getJSONArray("packetTimes").length(); fragmentIndex++) {
+                            if(fragmentIndex > 0) {
+                                JSONObject currentFragmentTime = jsonObj.getJSONArray("flows").getJSONObject(0).getJSONArray("packetTimes").getJSONObject(fragmentIndex);
+                                JSONObject previousFragmentTime = jsonObj.getJSONArray("flows").getJSONObject(0).getJSONArray("packetTimes").getJSONObject(fragmentIndex-1);
+
+                                // if(currentFragmentTime.getJSONArray(flowFragment)){}
+
+                                // to-do
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        System.out.println(jsonObj.getJSONArray("flows").getJSONObject(0).getJSONArray("packetTimes").getJSONObject(0));
+        // System.out.println(nodesToBeVerified.getJSONArray("flow0").getJSONArray(0).getJSONObject(0).getString("FlowAndFragment"));
+        sc.close();
+    }
+
     // function to check wheter the packets of same port and priority are being transmitted in order of arrival
     public static boolean isPacketInOrder(JSONArray prioritySlotData) {
         for(int i = 0; i < prioritySlotData.length(); i++){
@@ -816,7 +858,7 @@ public class Checker {
         return true;
     }
 
-    // function to check the logs on the log file
+    // function to check the if the values are positive on the log file
     public static void checkLogs(File logfile) throws FileNotFoundException {
 
         // define the patttern that will be used to find in the file
@@ -1100,7 +1142,7 @@ public class Checker {
         return "check";
     }
 
-    // aux function to auxiliate checkPriorityWindwo by finding the switch name and priority on json object
+    // aux function to auxiliate checkPriorityWindow function by finding the switch name and priority on json object
     public static boolean hasSamePriority(JSONArray priorityWindows, JSONArray prioritySlotsData, String switchName){
         
         for(int a = 0; a < priorityWindows.length(); a++){
