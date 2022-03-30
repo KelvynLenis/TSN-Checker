@@ -3,7 +3,7 @@ The <a href="https://github.com/ACassimiro/TSNsched">TSNSched</a> provides three
 
 ### Table of Contents
 
-- [Criterias](#criterias)
+- [criteria](#criteria)
   - [Typechecking value](#typechecking-value)
   - [Well formed hops ](#well-formed-hops)
   - [Consistent path nodes](#consistent-path-nodes)
@@ -21,9 +21,9 @@ The <a href="https://github.com/ACassimiro/TSNsched">TSNSched</a> provides three
       * [Packet times](#packet-times)
  - [How to run](#how-to-run)
 
-# Criterias
+# Criteria
 
-There are some topics we need to check. They were selected based on the following criterias:
+There are some topics we need to check. They were selected based on the following criteria:
 
 - Criteria 1: All values of time(Departure, arrival and scheduled times) are positive (Typechecking-value)
 - Criteria 2: Time of sent plus duration time of transmission must be equal to the scheduled time. (Well formed hops)

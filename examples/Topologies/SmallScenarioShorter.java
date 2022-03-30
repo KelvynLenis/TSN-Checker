@@ -1,4 +1,4 @@
-package com.tsnsched.generated_scenarios;
+package examples.Topologies;
 import java.util.*;
 import java.io.*;
 import com.tsnsched.core.nodes.*;
