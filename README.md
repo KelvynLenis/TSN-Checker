@@ -26,11 +26,13 @@ The <a href="https://github.com/ACassimiro/TSNsched">TSNSched</a> provides three
 There are some topics we need to check. They were selected based on the following criteria:
 
 - Criteria 1: All values of time(Departure, arrival and scheduled times) are positive (Typechecking-value)
-- Criteria 2: Time of sent plus duration time of transmission must be equal to the scheduled time. (Well formed hops)
+- Criteria 2: Time of departure of a node must be the scheduled time of the previous node. (Well formed hops)
 - Criteria 3: Consistent path nodes.
 - Criteria 4: Each packet must be transmitted at its correspondent priority window.(Transmission windows consistency - Cycle)
 - Criteria 5: Two packets can't be transmitted at same time at same port.(Transmission windows consistency – Priority Window)
 - Criteria 6: Packets at the same port of same priority must be sent in arrival order(FIFO like).(Transmission windows consistency – Sent Order)
+- Criteria 7: A port is opened only when its transmitting.
+- Honorable mentions: Time of sent plus duration time of transmission must be equal to the scheduled time.
 
 # Categories
 
@@ -88,12 +90,29 @@ Below, it's an example of how the TSN outputs logs of time in the .log file. It 
 
 ## Well formed hops
 
-TSN schedules and controls the transmission of packets on the flows based on time, as it's a time-sensitive network, so time is the most important thing to be considered. It's critical that flows respect its schedule to minimize latency and jitter. It can be validated by adding slot start and the slot duration and compare to the scheduled time to validate it as show below:
+TSN schedules and controls the transmission of packets on the flows based on time, as it's a time-sensitive network, so time is the most important thing to be considered. It's critical that flows respect its schedule to minimize latency and jitter. We have three different data of time in the output, they are the arrival time, departure time and scheduled time. Those three are chained together as arrival time represents when the packet arrived at current node, departure time represents when the packet left the previous node and the scheduled time represents when the packet is to be sent to the next node. We make a validation to see if the nodes are well scheduled by comparing those information of a node with its previous, more precisely, we need to ensure that the departure time of a node is equal to the scheduled time of the previous node:
 
 ```
-Fragment slot start 0: 42.01 ; 4201/100
-Fragment slot duration 0 : 13.0 ; 13
-Fragment scheduled time: 55.01
+{
+          "flow0Fragment1": [
+            {
+              "packet0ArrivalTime": 8.576,
+              "packetNumber": 0,
+              "packet0DepartureTime": 0.576,
+              "packet0ScheduledTime": 9.152
+            }
+          ]
+        },
+        {
+          "flow0Fragment3": [
+            {
+              "packet0ArrivalTime": 17.152,
+              "packetNumber": 0,
+              "packet0DepartureTime": 9.152,
+              "packet0ScheduledTime": 17.728
+            }
+          ]
+        },
 ```
 
 
@@ -162,6 +181,17 @@ This is how both start of transmission and transmission time are shown. We need 
 
 
 <br />
+
+
+## Honorable mention 1
+
+Although is not critical it's good that a port remains opened until the transmission is done:
+
+```
+Fragment slot start 0: 42.01 ; 4201/100
+Fragment slot duration 0 : 13.0 ; 13
+Fragment scheduled time: 55.01
+```
 
 ## Table of criteria
 
