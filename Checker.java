@@ -6,7 +6,9 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,8 +22,8 @@ public class Checker {
         File file = new File(args[0]);
         File logfile = new File(args[1]);
         
-        // File file = new File("logs/GeneratedCode/1_new/output.json");
-        // File logfile = new File("logs/GeneratedCode/1_new/log.txt");
+        // File file = new File("logs/GeneratedCode/2_new/output.json");
+        // File logfile = new File("logs/GeneratedCode/2_new/log.txt");
         
         Pattern jsonPattern = Pattern.compile("\\w*.json");
         Matcher jsonMatcher = jsonPattern.matcher(args[0]);
@@ -35,9 +37,6 @@ public class Checker {
         JSONObject timePacketsObject = getTimePackets(file);
         JSONObject flowsFrag = getFlowsFragments(logfile);
 
-        // System.out.println(timePacketsObject.getJSONArray("flow0"));
-
-
         // checking if a port has more than one slot
         // if(!hasMoreSlots(switchData).equals("false")){
         //     System.out.println("Found");
@@ -46,17 +45,17 @@ public class Checker {
 
         // validations
         checkWellformedHops(file, flowsFrag);
-        // checkLogs(logfile);
-        // checkPortTransmission(switchData);
-        // checkTransmissionWindow(switchData); 
-        // CheckTimePackets(timePacketsObject, logfile);
-        // checkHop(logfile, flowsFrag);
-        // checkPriorityWindow(file, logfile, timePacketsObject);
+        checkLogs(logfile);
+        checkPortTransmission(switchData);
+        checkTransmissionWindow(switchData); 
+        CheckTimePackets(timePacketsObject, logfile);
+        checkHop(logfile, flowsFrag);
+        checkPriorityWindow(file, logfile, timePacketsObject);
         
         // JSONObject path = getMultiPath(logfile);
         // System.out.println(path);
         
-        // System.out.println(flowsFrag);
+        // System.out.println(flowsFrag.getJSONArray("flow"+0).getJSONArray(0));
         
         // System.out.println(timePacketsObject);
 
@@ -796,31 +795,84 @@ public class Checker {
         }
 
         JSONObject jsonObj = new JSONObject(jsonString);
-
+        ArrayList<Integer> allIntervals = new ArrayList<Integer>();
+        int step = 1;
+        int intervalIndex = -1;
+        
         for(int flow = 0; flow < nodesToBeVerified.length(); flow++) {
             for (int i = 0; i < nodesToBeVerified.getJSONArray("flow"+flow).length(); i++) {
-                for(int j = 0; j < nodesToBeVerified.getJSONArray("flow"+flow).getJSONArray(i).length(); j++){
-                    String flowFragment = nodesToBeVerified.getJSONArray("flow"+flow).getJSONArray(i).getJSONObject(j).getString("FlowAndFragment");
-                    int intervalSize = nodesToBeVerified.getJSONArray("flow"+flow).getJSONArray(i).getJSONObject(j).length();
-
-                    for(int flowNumber = 0; flowNumber < jsonObj.getJSONArray("flows").length(); flowNumber++){
-                        for (int fragmentIndex = 0; fragmentIndex < jsonObj.getJSONArray("flows").getJSONObject(flowNumber).getJSONArray("packetTimes").length(); fragmentIndex++) {
-                            if(fragmentIndex > 0) {
-                                JSONObject currentFragmentTime = jsonObj.getJSONArray("flows").getJSONObject(0).getJSONArray("packetTimes").getJSONObject(fragmentIndex);
-                                JSONObject previousFragmentTime = jsonObj.getJSONArray("flows").getJSONObject(0).getJSONArray("packetTimes").getJSONObject(fragmentIndex-1);
-
-                                // if(currentFragmentTime.getJSONArray(flowFragment)){}
-
-                                // to-do
-                            }
-                        }
-                    }
-
-                }
+                int intervalSize = nodesToBeVerified.getJSONArray("flow"+flow).getJSONArray(i).length();
+                // System.out.println(nodesToBeVerified.getJSONArray("flow"+flow).length());
+                allIntervals.add(intervalSize);
             }
         }
 
-        System.out.println(jsonObj.getJSONArray("flows").getJSONObject(0).getJSONArray("packetTimes").getJSONObject(0));
+        
+        for(int flowNumber = 0; flowNumber < jsonObj.getJSONArray("flows").length(); flowNumber++){
+            step = 1;
+            intervalIndex++;
+            for (int fragmentIndex = 0; fragmentIndex < jsonObj.getJSONArray("flows").getJSONObject(flowNumber).getJSONArray("packetTimes").length(); fragmentIndex++) {
+                int currentInterval = allIntervals.get(intervalIndex);
+                
+                if(fragmentIndex > 0) {
+                    // System.out.println(jsonObj.getJSONArray("flows").getJSONObject(1));
+                    // int newIntervalSize = nodesToBeVerified.getJSONArray("flow"+flowNumber).getJSONArray(fragmentIndex).length();
+                    // System.out.println(jsonObj.getJSONArray("flows").getJSONObject(flowNumber).getJSONArray("packetTimes").length());
+
+                    if(step < currentInterval){
+
+                        step++;
+
+                        JSONObject currentFragmentTime = jsonObj.getJSONArray("flows").getJSONObject(flowNumber).getJSONArray("packetTimes").getJSONObject(fragmentIndex);
+                        JSONObject previousFragmentTime = jsonObj.getJSONArray("flows").getJSONObject(flowNumber).getJSONArray("packetTimes").getJSONObject(fragmentIndex-1);
+    
+                        // get the key 'flowXFragmentY' of a JSON ARRAY from both current object and previous object
+                        Iterator<String> setOfCurrentFlowFragmentKey = currentFragmentTime.keySet().iterator();
+                        Iterator<String> setOfPreviousFlowFragmentKey = previousFragmentTime.keySet().iterator();
+    
+                        // convert it to a string
+                        String currentFlowFragmentKeyToString = setOfCurrentFlowFragmentKey.next();
+                        String previousFlowFragmentKeyToString = setOfPreviousFlowFragmentKey.next();
+    
+                        // get a set of keys from a flowXFragmentY
+                        Set<String> setOfCurrentFlowFragmentTimes = currentFragmentTime.getJSONArray(currentFlowFragmentKeyToString).getJSONObject(0).keySet();
+                        Set<String> setOfPreviousFlowFragmentTimes = previousFragmentTime.getJSONArray(previousFlowFragmentKeyToString).getJSONObject(0).keySet();
+                        
+                        // convert only the Departure Time key to a string
+                        String currentDepartureKeyToString = setOfCurrentFlowFragmentTimes.toArray()[2].toString();
+                        String previousScheduledKeyToString = setOfPreviousFlowFragmentTimes.toArray()[3].toString();
+    
+                        // get the Departure Time as a float
+                        Float currentDepartureTime = currentFragmentTime.getJSONArray(currentFlowFragmentKeyToString).getJSONObject(0).getFloat(currentDepartureKeyToString);
+                        Float previousScheduledTime = previousFragmentTime.getJSONArray(previousFlowFragmentKeyToString).getJSONObject(0).getFloat(previousScheduledKeyToString);                                
+    
+                        // System.out.println(setOfCurrentFlowFragmentTimes.toArray()[2]);
+                        // System.out.println(currentFlowFragmentKeyToString);
+                        // System.out.println(previousFlowFragmentKeyToString);
+                        // System.out.println(currentFragmentTime.getJSONArray(currentFlowFragmentKeyToString).getJSONObject(0).getFloat(currentDepartureKeyToString));
+                        // System.out.println(currentDepartureTime);
+                        // System.out.println(previousScheduledTime);
+                        
+                        if(!currentDepartureTime.equals(previousScheduledTime)){
+                            System.out.println(currentFlowFragmentKeyToString);
+                            System.out.println(previousFlowFragmentKeyToString);
+
+                            System.out.println(currentDepartureTime);
+                            System.out.println(previousScheduledTime);
+    
+                            System.out.println("Not Ok");
+                            return;
+                        }
+                    } else if (step == currentInterval){
+                        step = 1;
+                        intervalIndex++;
+                    }
+                }
+            }
+        }
+        
+
+        // System.out.println(jsonObj.getJSONArray("flows").getJSONObject(0).getJSONArray("packetTimes").getJSONObject(0));
         // System.out.println(nodesToBeVerified.getJSONArray("flow0").getJSONArray(0).getJSONObject(0).getString("FlowAndFragment"));
         sc.close();
     }
@@ -947,7 +999,7 @@ public class Checker {
                 scheduled = Float.parseFloat(scheduledMatcher.group(1));
     
                 if(scheduled < 0){
-                    System.out.print("Typechecking value: Shceduled time can't be negative (line " + lineCounter + ")");
+                    System.out.print("Typechecking value: Scheduled time can't be negative (line " + lineCounter + ")");
                     return;
                 }
                 System.out.println("Scheduled time: "+scheduledMatcher.group(1) + " (line " + lineCounter + ")");
@@ -957,7 +1009,7 @@ public class Checker {
                     System.out.println("Ok");
                 }
                 else {
-                    System.out.println("Not ok! (line " + lineCounter + ")");
+                    System.out.println("WARNING! Unexpected Scheduled time. (line " + lineCounter + ")");
                 }
                 System.out.println("=======================");
                 System.out.println();
