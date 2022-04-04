@@ -73,7 +73,7 @@ A flow is broken into fragments, and it also contains data of the packets. This 
 There is a jar file inside the folder Checker, in a terminal just run the following command passing the path to the json file followed by the log file, the result will then been shown in the terminal:
 
 ```
-java -jar Checker.jar [path to the .json file] [path to the .log file]
+java -jar --enable-preview Checker.jar [path to the .json file] [path to the .log file]
 ```
 
 ## Typechecking value
